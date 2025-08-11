@@ -49,14 +49,6 @@ class SonarQubeAPI:
         params = {"q": q}
         return self._get("api/projects/search", params=params)
 
-    def get_project_details(self, project_key):
-        """
-        Get project details.
-        :param project_key: The key of the project to get details for.
-        """
-        params = {"project": project_key}
-        return self._get("api/projects/show", params=params)
-
     def create_project(self, project_key, name):
         """
         Create a new project.

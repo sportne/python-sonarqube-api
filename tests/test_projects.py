@@ -24,25 +24,6 @@ class TestProjects(unittest.TestCase):
         )
 
     @patch("src.sonarqube.requests.Session")
-    def test_get_project_details(self, mock_session_cls):
-        """
-        Test getting project details.
-        """
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.json.return_value = {"project": {}}
-        mock_session.get.return_value = mock_response
-
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.get_project_details(project_key="my-project")
-
-        mock_session.get.assert_called_once_with(
-            "http://localhost:9000/api/projects/show",
-            params={"project": "my-project"},
-        )
-
-    @patch("src.sonarqube.requests.Session")
     def test_create_project(self, mock_session_cls):
         """
         Test creating a new project.

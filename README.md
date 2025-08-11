@@ -12,7 +12,6 @@ This is a list of features that need to be implemented to consider this a comple
 
 ### Projects
 - [x] Search for projects.
-- [x] Get project details.
 - [x] Create a new project.
 - [x] Delete a project.
 
