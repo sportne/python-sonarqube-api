@@ -171,6 +171,78 @@ class SonarQubeAPI:
         """
         return self._get("api/issues/authors", params=kwargs)
 
+    def get_anticipated_issue_transitions(self, issue):
+        """
+        Receive a list of anticipated transitions that can be applied to not yet discovered issues on a specific project.
+        :param issue: Issue key
+        """
+        params = {"issue": issue}
+        return self._post("api/issues/anticipated_transitions", params=params)
+
+    def get_issue_component_tags(self, component, **kwargs):
+        """
+        List tags for the issues under a given component.
+        :param component: Component key
+        :param kwargs: Additional parameters
+        """
+        params = {"component": component}
+        params.update(kwargs)
+        return self._get("api/issues/component_tags", params=params)
+
+    def export_issues_gitlab_sast(self, project, branch=None, pullRequest=None):
+        """
+        Return a list of vulnerabilities according to the Gitlab SAST JSON format.
+        :param project: Project key
+        :param branch: Branch key
+        :param pullRequest: Pull request ID
+        """
+        params = {"project": project}
+        if branch:
+            params["branch"] = branch
+        if pullRequest:
+            params["pullRequest"] = pullRequest
+        return self._get("api/issues/gitlab_sast_export", params=params)
+
+    def list_issues(self, project, **kwargs):
+        """
+        List issues.
+        :param project: Project key
+        :param kwargs: Additional parameters
+        """
+        params = {"project": project}
+        params.update(kwargs)
+        return self._get("api/issues/list", params=params)
+
+    def pull_issues(self, branch, project, **kwargs):
+        """
+        Fetch and return all issues for a given branch.
+        :param branch: Branch key
+        :param project: Project key
+        :param kwargs: Additional parameters
+        """
+        params = {"branch": branch, "project": project}
+        params.update(kwargs)
+        return self._get("api/issues/pull", params=params)
+
+    def pull_taint_issues(self, branch, project, **kwargs):
+        """
+        Fetch and return all taint vulnerabilities for a given branch.
+        :param branch: Branch key
+        :param project: Project key
+        :param kwargs: Additional parameters
+        """
+        params = {"branch": branch, "project": project}
+        params.update(kwargs)
+        return self._get("api/issues/pull_taint", params=params)
+
+    def reindex_issues(self, project):
+        """
+        Reindex issues for a project.
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._post("api/issues/reindex", params=params)
+
     # SonarQube Applications API
     def add_project_to_application(self, application, project):
         """
@@ -603,3 +675,95 @@ class SonarQubeAPI:
         if ps:
             params["ps"] = ps
         return self._get("api/favorites/search", params=params)
+
+    # SonarQube Hotspots API
+    def add_hotspot_comment(self, hotspot, text):
+        """
+        Add a comment to a Security Hotspot.
+        :param hotspot: Hotspot key
+        :param text: Comment text
+        """
+        params = {"hotspot": hotspot, "text": text}
+        return self._post("api/hotspots/add_comment", params=params)
+
+    def assign_hotspot(self, hotspot, assignee):
+        """
+        Assign a hotspot to an active user.
+        :param hotspot: Hotspot key
+        :param assignee: User login
+        """
+        params = {"hotspot": hotspot, "assignee": assignee}
+        return self._post("api/hotspots/assign", params=params)
+
+    def change_hotspot_status(self, hotspot, status, resolution=None, comment=None):
+        """
+        Change the status of a Security Hotspot.
+        :param hotspot: Hotspot key
+        :param status: The new status
+        :param resolution: The resolution if the new status is "REVIEWED"
+        :param comment: A comment to add
+        """
+        params = {"hotspot": hotspot, "status": status}
+        if resolution:
+            params["resolution"] = resolution
+        if comment:
+            params["comment"] = comment
+        return self._post("api/hotspots/change_status", params=params)
+
+    def delete_hotspot_comment(self, comment):
+        """
+        Delete comment from Security Hotspot.
+        :param comment: Comment key
+        """
+        params = {"comment": comment}
+        return self._post("api/hotspots/delete_comment", params=params)
+
+    def edit_hotspot_comment(self, comment, text):
+        """
+        Edit a comment.
+        :param comment: Comment key
+        :param text: New comment text
+        """
+        params = {"comment": comment, "text": text}
+        return self._post("api/hotspots/edit_comment", params=params)
+
+    def list_hotspots(self, projectKey, p=None, ps=None):
+        """
+        List Security Hotpots.
+        :param projectKey: Project key
+        :param p: Page number
+        :param ps: Page size
+        """
+        params = {"projectKey": projectKey}
+        if p:
+            params["p"] = p
+        if ps:
+            params["ps"] = ps
+        return self._get("api/hotspots/list", params=params)
+
+    def pull_hotspots(self, branch, project):
+        """
+        Fetch and return all hotspots for a given branch.
+        :param branch: Branch key
+        :param project: Project key
+        """
+        params = {"branch": branch, "project": project}
+        return self._get("api/hotspots/pull", params=params)
+
+    def search_hotspots(self, projectKey, **kwargs):
+        """
+        Search for Security Hotspots.
+        :param projectKey: Project key
+        :param kwargs: Additional parameters
+        """
+        params = {"projectKey": projectKey}
+        params.update(kwargs)
+        return self._get("api/hotspots/search", params=params)
+
+    def show_hotspot(self, hotspot):
+        """
+        Provides the details of a Security Hotspot.
+        :param hotspot: Hotspot key
+        """
+        params = {"hotspot": hotspot}
+        return self._get("api/hotspots/show", params=params)
