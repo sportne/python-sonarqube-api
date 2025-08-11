@@ -45,12 +45,12 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] Return number of Compute Engine workers (`api/ce/worker_count`)
 
 ### Components
-- [ ] Coverage data required for rendering the component viewer (`api/components/app`)
-- [ ] Search for components (`api/components/search`)
-- [ ] Search for projects (`api/components/search_projects`)
-- [ ] Returns a component and its ancestors (`api/components/show`)
-- [ ] Internal WS for the top-right search engine (`api/components/suggestions`)
-- [ ] Navigate through components based on the chosen strategy (`api/components/tree`)
+- [x] Coverage data required for rendering the component viewer (`api/components/app`)
+- [x] Search for components (`api/components/search`)
+- [x] Search for projects (`api/components/search_projects`)
+- [x] Returns a component and its ancestors (`api/components/show`)
+- [x] Internal WS for the top-right search engine (`api/components/suggestions`)
+- [x] Navigate through components based on the chosen strategy (`api/components/tree`)
 
 ### Duplications
 - [ ] Get duplications (`api/duplications/show`)
