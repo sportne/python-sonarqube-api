@@ -1584,3 +1584,830 @@ class SonarQube:
         """
         params = {"project": project, "visibility": visibility}
         return self._post("api/projects/update_visibility", params=params)
+
+    # SonarQube Quality Gates API
+    def add_group_to_quality_gate(self, gateId, groupId, organization=None):
+        """
+        Allow a group of users to edit a Quality Gate.
+        :param gateId: Quality Gate ID
+        :param groupId: Group ID
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId, "groupId": groupId}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/add_group", params=params)
+
+    def add_user_to_quality_gate(self, gateId, userId, organization=None):
+        """
+        Allow a user to edit a Quality Gate.
+        :param gateId: Quality Gate ID
+        :param userId: User ID
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId, "userId": userId}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/add_user", params=params)
+
+    def get_application_quality_gate_status(
+        self, application, branch=None, pullRequest=None
+    ):
+        """
+        Get the quality gate status of an application.
+        :param application: Application key
+        :param branch: Branch key
+        :param pullRequest: Pull request ID
+        """
+        params = {"application": application}
+        if branch:
+            params["branch"] = branch
+        if pullRequest:
+            params["pullRequest"] = pullRequest
+        return self._get("api/qualitygates/application_status", params=params)
+
+    def copy_quality_gate(self, sourceName, destName, organization=None):
+        """
+        Copy a Quality Gate.
+        :param sourceName: Source Quality Gate name
+        :param destName: Destination Quality Gate name
+        :param organization: Organization key
+        """
+        params = {"sourceName": sourceName, "name": destName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/copy", params=params)
+
+    def create_quality_gate(self, name, organization=None):
+        """
+        Create a Quality Gate.
+        :param name: Quality Gate name
+        :param organization: Organization key
+        """
+        params = {"name": name}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/create", params=params)
+
+    def create_quality_gate_condition(
+        self, gateName, metric, op, error, organization=None
+    ):
+        """
+        Add a new condition to a quality gate.
+        :param gateName: Quality Gate name
+        :param metric: Metric key
+        :param op: Operator (LT or GT)
+        :param error: Error threshold
+        :param organization: Organization key
+        """
+        params = {"gateName": gateName, "metric": metric, "op": op, "error": error}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/create_condition", params=params)
+
+    def delete_quality_gate_condition(self, id, organization=None):
+        """
+        Delete a condition from a quality gate.
+        :param id: Condition ID
+        :param organization: Organization key
+        """
+        params = {"id": id}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/delete_condition", params=params)
+
+    def deselect_project_from_quality_gate(self, projectKey, organization=None):
+        """
+        Remove the association of a project from a quality gate.
+        :param projectKey: Project key
+        :param organization: Organization key
+        """
+        params = {"projectKey": projectKey}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/deselect", params=params)
+
+    def destroy_quality_gate(self, name, organization=None):
+        """
+        Delete a Quality Gate.
+        :param name: Quality Gate name
+        :param organization: Organization key
+        """
+        params = {"name": name}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/destroy", params=params)
+
+    def get_quality_gate_by_project(self, projectKey, organization=None):
+        """
+        Get the quality gate of a project.
+        :param projectKey: Project key
+        :param organization: Organization key
+        """
+        params = {"projectKey": projectKey}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualitygates/get_by_project", params=params)
+
+    def list_quality_gates(self, organization=None):
+        """
+        Get a list of quality gates.
+        :param organization: Organization key
+        """
+        params = {}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualitygates/list", params=params)
+
+    def get_project_quality_gate_status(
+        self,
+        analysisId=None,
+        projectId=None,
+        projectKey=None,
+        branch=None,
+        pullRequest=None,
+    ):
+        """
+        Get the quality gate status of a project or a Compute Engine task.
+        :param analysisId: Analysis ID
+        :param projectId: Project ID
+        :param projectKey: Project key
+        :param branch: Branch key
+        :param pullRequest: Pull request ID
+        """
+        params = {}
+        if analysisId:
+            params["analysisId"] = analysisId
+        if projectId:
+            params["projectId"] = projectId
+        if projectKey:
+            params["projectKey"] = projectKey
+        if branch:
+            params["branch"] = branch
+        if pullRequest:
+            params["pullRequest"] = pullRequest
+        return self._get("api/qualitygates/project_status", params=params)
+
+    def remove_group_from_quality_gate(self, gateId, groupId, organization=None):
+        """
+        Remove the ability from a group to edit a Quality Gate.
+        :param gateId: Quality Gate ID
+        :param groupId: Group ID
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId, "groupId": groupId}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/remove_group", params=params)
+
+    def remove_user_from_quality_gate(self, gateId, userId, organization=None):
+        """
+        Remove the ability from an user to edit a Quality Gate.
+        :param gateId: Quality Gate ID
+        :param userId: User ID
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId, "userId": userId}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/remove_user", params=params)
+
+    def rename_quality_gate(self, currentName, newName, organization=None):
+        """
+        Rename a Quality Gate.
+        :param currentName: Current Quality Gate name
+        :param newName: New Quality Gate name
+        :param organization: Organization key
+        """
+        params = {"name": newName, "id": currentName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/rename", params=params)
+
+    def search_quality_gates(
+        self, gateId, p=None, ps=None, q=None, selected=None, organization=None
+    ):
+        """
+        Search for projects associated (or not) to a quality gate.
+        :param gateId: Quality Gate ID
+        :param p: Page number
+        :param ps: Page size
+        :param q: Query string
+        :param selected: Selection status
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId}
+        if p:
+            params["p"] = p
+        if ps:
+            params["ps"] = ps
+        if q:
+            params["q"] = q
+        if selected:
+            params["selected"] = selected
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualitygates/search", params=params)
+
+    def search_quality_gate_groups(
+        self, gateId, p=None, ps=None, q=None, organization=None
+    ):
+        """
+        List the groups that are allowed to edit a Quality Gate.
+        :param gateId: Quality Gate ID
+        :param p: Page number
+        :param ps: Page size
+        :param q: Query string
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId}
+        if p:
+            params["p"] = p
+        if ps:
+            params["ps"] = ps
+        if q:
+            params["q"] = q
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualitygates/search_groups", params=params)
+
+    def search_quality_gate_users(
+        self, gateId, p=None, ps=None, q=None, organization=None
+    ):
+        """
+        List the users that are allowed to edit a Quality Gate.
+        :param gateId: Quality Gate ID
+        :param p: Page number
+        :param ps: Page size
+        :param q: Query string
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId}
+        if p:
+            params["p"] = p
+        if ps:
+            params["ps"] = ps
+        if q:
+            params["q"] = q
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualitygates/search_users", params=params)
+
+    def select_project_for_quality_gate(self, projectKey, gateId, organization=None):
+        """
+        Associate a project to a quality gate.
+        :param projectKey: Project key
+        :param gateId: Quality Gate ID
+        :param organization: Organization key
+        """
+        params = {"projectKey": projectKey, "gateId": gateId}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/select", params=params)
+
+    def set_quality_gate_ai_code_assurance(self, gateId, isAssured, organization=None):
+        """
+        Qualify or disqualify a custom Quality Gate as AI Code Assured.
+        :param gateId: Quality Gate ID
+        :param isAssured: Boolean indicating if the Quality Gate is AI Code Assured
+        :param organization: Organization key
+        """
+        params = {"gateId": gateId, "isAssured": isAssured}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/set_ai_code_assurance", params=params)
+
+    def set_default_quality_gate(self, name, organization=None):
+        """
+        Set a quality gate as the default quality gate.
+        :param name: Quality Gate name
+        :param organization: Organization key
+        """
+        params = {"name": name}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/set_as_default", params=params)
+
+    def show_quality_gate(self, name, organization=None):
+        """
+        Display the details of a quality gate
+        :param name: Quality Gate name
+        :param organization: Organization key
+        """
+        params = {"name": name}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualitygates/show", params=params)
+
+    def update_quality_gate_condition(self, id, metric, op, error, organization=None):
+        """
+        Update a condition attached to a quality gate.
+        :param id: Condition ID
+        :param metric: Metric key
+        :param op: Operator (LT or GT)
+        :param error: Error threshold
+        :param organization: Organization key
+        """
+        params = {"id": id, "metric": metric, "op": op, "error": error}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualitygates/update_condition", params=params)
+
+    # SonarQube Quality Profiles API
+    def activate_rule_in_quality_profile(
+        self, key, rule, reset=None, severity=None, params=None
+    ):
+        """
+        Activate a rule on a Quality Profile.
+        :param key: Quality Profile key
+        :param rule: Rule key
+        :param reset: Reset the severity and parameters of the rule
+        :param severity: Severity
+        :param params: Parameters
+        """
+        request_params = {"key": key, "rule": rule}
+        if reset:
+            request_params["reset"] = reset
+        if severity:
+            request_params["severity"] = severity
+        if params:
+            request_params["params"] = params
+        return self._post("api/qualityprofiles/activate_rule", params=request_params)
+
+    def activate_rules_in_quality_profile(self, key, **kwargs):
+        """
+        Bulk-activate rules on one quality profile.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._post("api/qualityprofiles/activate_rules", params=params)
+
+    def add_group_to_quality_profile(self, key, groupName, organization=None):
+        """
+        Allow a group to edit a Quality Profile.
+        :param key: Quality Profile key
+        :param groupName: Group name
+        :param organization: Organization key
+        """
+        params = {"key": key, "groupName": groupName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/add_group", params=params)
+
+    def add_project_to_quality_profile(self, key, project, organization=None):
+        """
+        Associate a project with a quality profile.
+        :param key: Quality Profile key
+        :param project: Project key
+        :param organization: Organization key
+        """
+        params = {"key": key, "project": project}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/add_project", params=params)
+
+    def add_user_to_quality_profile(self, key, userName, organization=None):
+        """
+        Allow a user to edit a Quality Profile.
+        :param key: Quality Profile key
+        :param userName: User login
+        :param organization: Organization key
+        """
+        params = {"key": key, "userName": userName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/add_user", params=params)
+
+    def backup_quality_profile(self, key):
+        """
+        Backup a quality profile in XML form.
+        :param key: Quality Profile key
+        """
+        params = {"key": key}
+        return self._get("api/qualityprofiles/backup", params=params)
+
+    def change_quality_profile_parent(self, key, parentKey, organization=None):
+        """
+        Change a quality profile's parent.
+        :param key: Quality Profile key
+        :param parentKey: Parent Quality Profile key
+        :param organization: Organization key
+        """
+        params = {"key": key, "parentKey": parentKey}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/change_parent", params=params)
+
+    def get_quality_profile_changelog(self, key, **kwargs):
+        """
+        Get the history of changes on a quality profile.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._get("api/qualityprofiles/changelog", params=params)
+
+    def compare_quality_profiles(self, fromKey, toKey, organization=None):
+        """
+        Compare two quality profiles.
+        :param fromKey: 'From' Quality Profile key
+        :param toKey: 'To' Quality Profile key
+        :param organization: Organization key
+        """
+        params = {"fromKey": fromKey, "toKey": toKey}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualityprofiles/compare", params=params)
+
+    def copy_quality_profile(self, fromKey, toName, organization=None):
+        """
+        Copy a quality profile.
+        :param fromKey: 'From' Quality Profile key
+        :param toName: 'To' Quality Profile name
+        :param organization: Organization key
+        """
+        params = {"fromKey": fromKey, "toName": toName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/copy", params=params)
+
+    def create_quality_profile(self, name, language, organization=None):
+        """
+        Create a quality profile.
+        :param name: Quality Profile name
+        :param language: Language
+        :param organization: Organization key
+        """
+        params = {"name": name, "language": language}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/create", params=params)
+
+    def deactivate_rule_from_quality_profile(self, key, rule, organization=None):
+        """
+        Deactivate a rule on a quality profile.
+        :param key: Quality Profile key
+        :param rule: Rule key
+        :param organization: Organization key
+        """
+        params = {"key": key, "rule": rule}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/deactivate_rule", params=params)
+
+    def deactivate_rules_from_quality_profile(self, key, **kwargs):
+        """
+        Bulk deactivate rules on Quality profiles.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._post("api/qualityprofiles/deactivate_rules", params=params)
+
+    def delete_quality_profile(self, key, organization=None):
+        """
+        Delete a quality profile.
+        :param key: Quality Profile key
+        :param organization: Organization key
+        """
+        params = {"key": key}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/delete", params=params)
+
+    def get_quality_profile_inheritance(self, key, organization=None):
+        """
+        Show a quality profile's ancestors and children.
+        :param key: Quality Profile key
+        :param organization: Organization key
+        """
+        params = {"key": key}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/qualityprofiles/inheritance", params=params)
+
+    def list_quality_profile_projects(self, key, **kwargs):
+        """
+        List projects with their association status regarding a quality profile.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._get("api/qualityprofiles/projects", params=params)
+
+    def remove_group_from_quality_profile(self, key, groupName, organization=None):
+        """
+        Remove the ability from a group to edit a Quality Profile.
+        :param key: Quality Profile key
+        :param groupName: Group name
+        :param organization: Organization key
+        """
+        params = {"key": key, "groupName": groupName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/remove_group", params=params)
+
+    def remove_project_from_quality_profile(self, key, project, organization=None):
+        """
+        Remove a project's association with a quality profile.
+        :param key: Quality Profile key
+        :param project: Project key
+        :param organization: Organization key
+        """
+        params = {"key": key, "project": project}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/remove_project", params=params)
+
+    def remove_user_from_quality_profile(self, key, userName, organization=None):
+        """
+        Remove the ability from a user to edit a Quality Profile.
+        :param key: Quality Profile key
+        :param userName: User login
+        :param organization: Organization key
+        """
+        params = {"key": key, "userName": userName}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/remove_user", params=params)
+
+    def rename_quality_profile(self, key, name, organization=None):
+        """
+        Rename a quality profile.
+        :param key: Quality Profile key
+        :param name: New name
+        :param organization: Organization key
+        """
+        params = {"key": key, "name": name}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/rename", params=params)
+
+    def restore_quality_profile(self, backup, organization=None):
+        """
+        Restore a quality profile using an XML file.
+        :param backup: Backup file
+        :param organization: Organization key
+        """
+        params = {}
+        if organization:
+            params["organization"] = organization
+        with open(backup, "rb") as f:
+            files = {"backup": f}
+            return self._post("api/qualityprofiles/restore", params=params, files=files)
+
+    def search_quality_profiles(self, **kwargs):
+        """
+        Search quality profiles.
+        :param kwargs: Additional parameters
+        """
+        return self._get("api/qualityprofiles/search", params=kwargs)
+
+    def search_quality_profile_groups(self, key, **kwargs):
+        """
+        List the groups that are allowed to edit a Quality Profile.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._get("api/qualityprofiles/search_groups", params=params)
+
+    def search_quality_profile_users(self, key, **kwargs):
+        """
+        List the users that are allowed to edit a Quality Profile.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._get("api/qualityprofiles/search_users", params=params)
+
+    def set_default_quality_profile(self, key, organization=None):
+        """
+        Select the default profile for a given language.
+        :param key: Quality Profile key
+        :param organization: Organization key
+        """
+        params = {"key": key}
+        if organization:
+            params["organization"] = organization
+        return self._post("api/qualityprofiles/set_default", params=params)
+
+    def show_quality_profile(self, key, **kwargs):
+        """
+        Show a quality profile.
+        :param key: Quality Profile key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._get("api/qualityprofiles/show", params=params)
+
+    # SonarQube Rules API
+    def get_rules_app(self):
+        """
+        Get data required for rendering the page 'Coding Rules'.
+        """
+        return self._get("api/rules/app")
+
+    def create_rule(self, custom_key, name, markdown_description, **kwargs):
+        """
+        Create a custom rule.
+        :param custom_key: Rule key
+        :param name: Rule name
+        :param markdown_description: Rule description
+        :param kwargs: Additional parameters
+        """
+        params = {
+            "custom_key": custom_key,
+            "name": name,
+            "markdown_description": markdown_description,
+        }
+        params.update(kwargs)
+        return self._post("api/rules/create", params=params)
+
+    def delete_rule(self, key):
+        """
+        Delete custom rule.
+        :param key: Rule key
+        """
+        params = {"key": key}
+        return self._post("api/rules/delete", params=params)
+
+    def list_rules(self, **kwargs):
+        """
+        List rules.
+        :param kwargs: Additional parameters
+        """
+        return self._get("api/rules/list", params=kwargs)
+
+    def list_rule_repositories(self, **kwargs):
+        """
+        List available rule repositories.
+        :param kwargs: Additional parameters
+        """
+        return self._get("api/rules/repositories", params=kwargs)
+
+    def search_rules(self, **kwargs):
+        """
+        Search for a collection of relevant rules matching a specified query.
+        :param kwargs: Additional parameters
+        """
+        return self._get("api/rules/search", params=kwargs)
+
+    def show_rule(self, key, **kwargs):
+        """
+        Get detailed information about a rule.
+        :param key: Rule key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._get("api/rules/show", params=params)
+
+    def list_rule_tags(self, **kwargs):
+        """
+        List rule tags.
+        :param kwargs: Additional parameters
+        """
+        return self._get("api/rules/tags", params=kwargs)
+
+    def update_rule(self, key, **kwargs):
+        """
+        Update an existing rule.
+        :param key: Rule key
+        :param kwargs: Additional parameters
+        """
+        params = {"key": key}
+        params.update(kwargs)
+        return self._post("api/rules/update", params=params)
+
+    # SonarQube Users API
+    def search_users(self, **kwargs):
+        """
+        Search for users.
+        :param kwargs: Additional parameters
+        """
+        return self._get("api/users/search", params=kwargs)
+
+    def create_user(self, login, name, **kwargs):
+        """
+        Create a new user.
+        :param login: User login
+        :param name: User name
+        :param kwargs: Additional parameters
+        """
+        params = {"login": login, "name": name}
+        params.update(kwargs)
+        return self._post("api/users/create", params=params)
+
+    def deactivate_user(self, login):
+        """
+        Deactivate a user.
+        :param login: User login
+        """
+        params = {"login": login}
+        return self._post("api/users/deactivate", params=params)
+
+    def update_user(self, login, **kwargs):
+        """
+        Update user properties.
+        :param login: User login
+        :param kwargs: Additional parameters
+        """
+        params = {"login": login}
+        params.update(kwargs)
+        return self._post("api/users/update", params=params)
+
+    def change_user_password(self, login, new_password, previous_password=None):
+        """
+        Change user password.
+        :param login: User login
+        :param new_password: New password
+        :param previous_password: Previous password
+        """
+        params = {"login": login, "password": new_password}
+        if previous_password:
+            params["previousPassword"] = previous_password
+        return self._post("api/users/change_password", params=params)
+
+    def get_user_groups(self, login, **kwargs):
+        """
+        Get user groups.
+        :param login: User login
+        :param kwargs: Additional parameters
+        """
+        params = {"login": login}
+        params.update(kwargs)
+        return self._get("api/users/groups", params=params)
+
+    def search_user_tokens(self, login):
+        """
+        Get user tokens.
+        :param login: User login
+        """
+        params = {"login": login}
+        return self._get("api/user_tokens/search", params=params)
+
+    def generate_user_token(self, login, name=None):
+        """
+        Generate a user token.
+        :param login: User login
+        :param name: Token name
+        """
+        params = {"login": login}
+        if name:
+            params["name"] = name
+        return self._post("api/user_tokens/generate", params=params)
+
+    def revoke_user_token(self, login, name):
+        """
+        Revoke a user token.
+        :param login: User login
+        :param name: Token name
+        """
+        params = {"login": login, "name": name}
+        return self._post("api/user_tokens/revoke", params=params)
+
+    # SonarQube System API
+    def get_system_health(self):
+        """
+        Get system health.
+        """
+        return self._get("api/system/health")
+
+    def get_system_metrics(self):
+        """
+        Get system metrics.
+        """
+        return self._get("api/system/metrics")
+
+    def get_system_status(self):
+        """
+        Get system status.
+        """
+        return self._get("api/system/status")
+
+    def get_system_upgrades(self):
+        """
+        Get system upgrades.
+        """
+        return self._get("api/system/upgrades")
+
+    def get_system_logs(self):
+        """
+        Get system logs.
+        """
+        return self._get("api/system/logs")
+
+    def get_system_info(self):
+        """
+        Get system configuration.
+        """
+        return self._get("api/system/info")
