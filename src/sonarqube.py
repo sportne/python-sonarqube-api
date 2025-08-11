@@ -40,3 +40,28 @@ class SonarQubeAPI:
         """
         response = self._get("api/authentication/validate")
         return response.status_code == 200 and response.json().get("valid") is True
+
+    def search_projects(self, q):
+        """
+        Search for projects.
+        :param q: The query to search for.
+        """
+        params = {"q": q}
+        return self._get("api/projects/search", params=params)
+
+    def create_project(self, project_key, name):
+        """
+        Create a new project.
+        :param project_key: The key of the new project.
+        :param name: The name of the new project.
+        """
+        params = {"project": project_key, "name": name}
+        return self._post("api/projects/create", params=params)
+
+    def delete_project(self, project_key):
+        """
+        Delete a project.
+        :param project_key: The key of the project to delete.
+        """
+        params = {"project": project_key}
+        return self._post("api/projects/delete", params=params)

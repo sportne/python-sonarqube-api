@@ -11,10 +11,9 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] Support for authentication using login/password (legacy).
 
 ### Projects
-- [ ] Search for projects.
-- [ ] Get project details.
-- [ ] Create a new project.
-- [ ] Delete a project.
+- [x] Search for projects.
+- [x] Create a new project.
+- [x] Delete a project.
 
 ### Issues
 - [ ] Search for issues.
@@ -78,3 +77,7 @@ To run the tests, use pytest:
 ```bash
 pytest
 ```
+
+## API Documentation
+
+The SonarQube REST API documentation can be found here: https://next.sonarqube.com/sonarqube/web_api/api/
