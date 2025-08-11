@@ -45,3 +45,36 @@ This is a list of features that need to be implemented to consider this a comple
 ### System
 - [ ] Get system health.
 - [ ] Get system metrics.
+
+## Development
+
+### Project Structure
+```
+.
+├── .gitignore
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── setup.py
+├── src
+│   └── __init__.py
+└── tests
+    ├── __init__.py
+    └── test_placeholder.py
+```
+
+### Formatting
+
+To format the code, run black:
+
+```bash
+black src tests
+```
+
+### Testing
+
+To run the tests, use pytest:
+
+```bash
+pytest
+```
