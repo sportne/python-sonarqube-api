@@ -65,3 +65,108 @@ class SonarQubeAPI:
         """
         params = {"project": project_key}
         return self._post("api/projects/delete", params=params)
+
+    def search_issues(self, **kwargs):
+        """
+        Search for issues.
+        :param kwargs: The search parameters.
+        """
+        return self._get("api/issues/search", params=kwargs)
+
+    def get_issue_details(self, issue_key):
+        """
+        Get the details of a specific issue.
+        :param issue_key: The key of the issue to get details for.
+        """
+        return self.search_issues(issues=issue_key)
+
+    def assign_issue(self, issue_key, assignee):
+        """
+        Assign an issue to a user.
+        :param issue_key: The key of the issue to assign.
+        :param assignee: The login of the user to assign the issue to.
+        """
+        params = {"issue": issue_key, "assignee": assignee}
+        return self._post("api/issues/assign", params=params)
+
+    def add_comment_to_issue(self, issue_key, text):
+        """
+        Add a comment to an issue.
+        :param issue_key: The key of the issue to add a comment to.
+        :param text: The text of the comment.
+        """
+        params = {"issue": issue_key, "text": text}
+        return self._post("api/issues/add_comment", params=params)
+
+    def transition_issue(self, issue_key, transition):
+        """
+        Transition an issue.
+        :param issue_key: The key of the issue to transition.
+        :param transition: The transition to apply.
+        """
+        params = {"issue": issue_key, "transition": transition}
+        return self._post("api/issues/do_transition", params=params)
+
+    def bulk_change_issues(self, **kwargs):
+        """
+        Bulk change issues.
+        :param kwargs: The parameters for the bulk change.
+        """
+        return self._post("api/issues/bulk_change", params=kwargs)
+
+    def get_issue_changelog(self, issue_key):
+        """
+        Get the changelog of an issue.
+        :param issue_key: The key of the issue.
+        """
+        params = {"issue": issue_key}
+        return self._get("api/issues/changelog", params=params)
+
+    def delete_comment(self, comment_key):
+        """
+        Delete a comment on an issue.
+        :param comment_key: The key of the comment to delete.
+        """
+        params = {"comment": comment_key}
+        return self._post("api/issues/delete_comment", params=params)
+
+    def edit_comment(self, comment_key, text):
+        """
+        Edit a comment on an issue.
+        :param comment_key: The key of the comment to edit.
+        :param text: The new text of the comment.
+        """
+        params = {"comment": comment_key, "text": text}
+        return self._post("api/issues/edit_comment", params=params)
+
+    def set_issue_severity(self, issue_key, severity):
+        """
+        Set the severity of an issue.
+        :param issue_key: The key of the issue.
+        :param severity: The new severity.
+        """
+        params = {"issue": issue_key, "severity": severity}
+        return self._post("api/issues/set_severity", params=params)
+
+    def set_issue_tags(self, issue_key, tags):
+        """
+        Set the tags of an issue.
+        :param issue_key: The key of the issue.
+        :param tags: The new tags.
+        """
+        params = {"issue": issue_key, "tags": tags}
+        return self._post("api/issues/set_tags", params=params)
+
+    def get_tags(self, **kwargs):
+        """
+        Get a list of tags for issues.
+        :param kwargs: The search parameters.
+        """
+        return self._get("api/issues/tags", params=kwargs)
+
+    def get_authors(self, **kwargs):
+        """
+        Get a list of issue authors.
+        :param kwargs: The search parameters.
+        """
+        return self._get("api/issues/authors", params=kwargs)

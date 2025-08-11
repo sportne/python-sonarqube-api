@@ -16,11 +16,19 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] Delete a project.
 
 ### Issues
-- [ ] Search for issues.
-- [ ] Get issue details.
-- [ ] Assign an issue.
-- [ ] Add a comment to an issue.
-- [ ] Transition an issue (e.g., confirm, resolve, reopen).
+- [x] Search for issues.
+- [x] Get issue details.
+- [x] Assign an issue.
+- [x] Add a comment to an issue.
+- [x] Transition an issue (e.g., confirm, resolve, reopen).
+- [x] Bulk change issues.
+- [x] Get an issue's changelog.
+- [x] Delete a comment on an issue.
+- [x] Edit a comment on an issue.
+- [x] Set an issue's severity.
+- [x] Set an issue's tags.
+- [x] Get a list of tags for issues.
+- [x] Get a list of issue authors.
 
 ### Measures and Metrics
 - [ ] Get measures for a component (project, file, etc.).
