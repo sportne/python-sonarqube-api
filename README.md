@@ -150,29 +150,29 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] Lists the users with their permissions (`api/permissions/users`)
 
 ### Plugins
-- [ ] Get the list of all the plugins available for installation (`api/plugins/available`)
-- [ ] Cancels any operation pending on any plugin (`api/plugins/cancel_all`)
-- [ ] Download plugin JAR (`api/plugins/download`)
-- [ ] Installs the latest version of a plugin (`api/plugins/install`)
-- [ ] Get the list of all the plugins installed (`api/plugins/installed`)
-- [ ] Get the list of plugins with pending operations (`api/plugins/pending`)
-- [ ] Uninstalls the plugin (`api/plugins/uninstall`)
-- [ ] Updates a plugin (`api/plugins/update`)
-- [ ] Lists plugins with available updates (`api/plugins/updates`)
+- [x] Get the list of all the plugins available for installation (`api/plugins/available`)
+- [x] Cancels any operation pending on any plugin (`api/plugins/cancel_all`)
+- [x] Download plugin JAR (`api/plugins/download`)
+- [x] Installs the latest version of a plugin (`api/plugins/install`)
+- [x] Get the list of all the plugins installed (`api/plugins/installed`)
+- [x] Get the list of plugins with pending operations (`api/plugins/pending`)
+- [x] Uninstalls the plugin (`api/plugins/uninstall`)
+- [x] Updates a plugin (`api/plugins/update`)
+- [x] Lists plugins with available updates (`api/plugins/updates`)
 
 ### Project Analyses
-- [ ] Create a project analysis event (`api/project_analyses/create_event`)
-- [ ] Delete a project analysis (`api/project_analyses/delete`)
-- [ ] Delete a project analysis event (`api/project_analyses/delete_event`)
-- [ ] Search a project analyses and attached events (`api/project_analyses/search`)
-- [ ] Update a project analysis event (`api/project_analyses/update_event`)
+- [x] Create a project analysis event (`api/project_analyses/create_event`)
+- [x] Delete a project analysis (`api/project_analyses/delete`)
+- [x] Delete a project analysis event (`api/project_analyses/delete_event`)
+- [x] Search a project analyses and attached events (`api/project_analyses/search`)
+- [x] Update a project analysis event (`api/project_analyses/update_event`)
 
 ### Project Badges
-- [ ] Generate a badge for project's AI assurance (`api/project_badges/ai_code_assurance`)
-- [ ] Generate badge for project's measure (`api/project_badges/measure`)
-- [ ] Generate badge for project's quality gate (`api/project_badges/quality_gate`)
-- [ ] Creates new token for project badge access (`api/project_badges/renew_token`)
-- [ ] Retrieve a token for project badge access (`api/project_badges/token`)
+- [x] Generate a badge for project's AI assurance (`api/project_badges/ai_code_assurance`)
+- [x] Generate badge for project's measure (`api/project_badges/measure`)
+- [x] Generate badge for project's quality gate (`api/project_badges/quality_gate`)
+- [x] Creates new token for project badge access (`api/project_badges/renew_token`)
+- [x] Retrieve a token for project badge access (`api/project_badges/token`)
 
 ### Project Branches
 - [ ] Delete a non-main branch (`api/project_branches/delete`)

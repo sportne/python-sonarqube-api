@@ -1144,3 +1144,165 @@ class SonarQubeAPI:
         if project:
             params["project"] = project
         return self._post("api/notifications/remove", params=params)
+
+    # SonarQube Plugins API
+    def get_available_plugins(self):
+        """
+        Get the list of all the plugins available for installation.
+        """
+        return self._get("api/plugins/available")
+
+    def cancel_all_pending_plugins(self):
+        """
+        Cancels any operation pending on any plugin.
+        """
+        return self._post("api/plugins/cancel_all")
+
+    def download_plugin(self, key):
+        """
+        Download plugin JAR.
+        :param key: Plugin key
+        """
+        params = {"key": key}
+        return self._get("api/plugins/download", params=params)
+
+    def install_plugin(self, key):
+        """
+        Installs the latest version of a plugin.
+        :param key: Plugin key
+        """
+        params = {"key": key}
+        return self._post("api/plugins/install", params=params)
+
+    def get_installed_plugins(self):
+        """
+        Get the list of all the plugins installed.
+        """
+        return self._get("api/plugins/installed")
+
+    def get_pending_plugins(self):
+        """
+        Get the list of plugins with pending operations.
+        """
+        return self._get("api/plugins/pending")
+
+    def uninstall_plugin(self, key):
+        """
+        Uninstalls the plugin.
+        :param key: Plugin key
+        """
+        params = {"key": key}
+        return self._post("api/plugins/uninstall", params=params)
+
+    def update_plugin(self, key):
+        """
+        Updates a plugin.
+        :param key: Plugin key
+        """
+        params = {"key": key}
+        return self._post("api/plugins/update", params=params)
+
+    def get_plugin_updates(self):
+        """
+        Lists plugins with available updates.
+        """
+        return self._get("api/plugins/updates")
+
+    # SonarQube Project Analyses API
+    def create_project_analysis_event(self, analysis, name, category=None):
+        """
+        Create a project analysis event.
+        :param analysis: Analysis key
+        :param name: Event name
+        :param category: Event category
+        """
+        params = {"analysis": analysis, "name": name}
+        if category:
+            params["category"] = category
+        return self._post("api/project_analyses/create_event", params=params)
+
+    def delete_project_analysis(self, analysis):
+        """
+        Delete a project analysis.
+        :param analysis: Analysis key
+        """
+        params = {"analysis": analysis}
+        return self._post("api/project_analyses/delete", params=params)
+
+    def delete_project_analysis_event(self, event):
+        """
+        Delete a project analysis event.
+        :param event: Event key
+        """
+        params = {"event": event}
+        return self._post("api/project_analyses/delete_event", params=params)
+
+    def search_project_analyses(self, project, **kwargs):
+        """
+        Search a project analyses and attached events.
+        :param project: Project key
+        :param kwargs: Additional parameters
+        """
+        params = {"project": project}
+        params.update(kwargs)
+        return self._get("api/project_analyses/search", params=params)
+
+    def update_project_analysis_event(self, event, name):
+        """
+        Update a project analysis event.
+        :param event: Event key
+        :param name: New name
+        """
+        params = {"event": event, "name": name}
+        return self._post("api/project_analyses/update_event", params=params)
+
+    # SonarQube Project Badges API
+    def get_project_badge_ai_code_assurance(self, project, branch=None):
+        """
+        Generate a badge for project's AI assurance as an SVG.
+        :param project: Project key
+        :param branch: Branch key
+        """
+        params = {"project": project}
+        if branch:
+            params["branch"] = branch
+        return self._get("api/project_badges/ai_code_assurance", params=params)
+
+    def get_project_badge_measure(self, project, metric, branch=None):
+        """
+        Generate badge for project's measure as an SVG.
+        :param project: Project key
+        :param metric: Metric key
+        :param branch: Branch key
+        """
+        params = {"project": project, "metric": metric}
+        if branch:
+            params["branch"] = branch
+        return self._get("api/project_badges/measure", params=params)
+
+    def get_project_badge_quality_gate(self, project, branch=None):
+        """
+        Generate badge for project's quality gate as an SVG.
+        :param project: Project key
+        :param branch: Branch key
+        """
+        params = {"project": project}
+        if branch:
+            params["branch"] = branch
+        return self._get("api/project_badges/quality_gate", params=params)
+
+    def renew_project_badge_token(self, project):
+        """
+        Creates new token replacing any existing token for project badge access.
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._post("api/project_badges/renew_token", params=params)
+
+    def get_project_badge_token(self, project):
+        """
+        Retrieve a token to use for project badge access.
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._get("api/project_badges/token", params=params)
