@@ -525,3 +525,81 @@ class SonarQubeAPI:
         params = {"component": component}
         params.update(kwargs)
         return self._get("api/components/tree", params=params)
+
+    # SonarQube Duplications API
+    def get_duplications(self, key, branch=None, pullRequest=None):
+        """
+        Get duplications.
+        :param key: File key
+        :param branch: Branch key
+        :param pullRequest: Pull request ID
+        """
+        params = {"key": key}
+        if branch:
+            params["branch"] = branch
+        if pullRequest:
+            params["pullRequest"] = pullRequest
+        return self._get("api/duplications/show", params=params)
+
+    # SonarQube Editions API
+    def activate_grace_period(self):
+        """
+        Enable a license 7-days grace period if the Server ID is invalid.
+        """
+        return self._post("api/editions/activate_grace_period")
+
+    def is_valid_license(self):
+        """
+        Return the validity of the license.
+        """
+        return self._get("api/editions/is_valid_license")
+
+    def set_license(self, license):
+        """
+        Set the license for enabling features of commercial editions.
+        :param license: License key
+        """
+        params = {"license": license}
+        return self._post("api/editions/set_license", params=params)
+
+    def show_license(self):
+        """
+        Show information about currently installed license.
+        """
+        return self._get("api/editions/show_license")
+
+    def unset_license(self):
+        """
+        Un-sets license.
+        """
+        return self._post("api/editions/unset_license")
+
+    # SonarQube Favorites API
+    def add_favorite(self, component):
+        """
+        Add a component as favorite.
+        :param component: Component key
+        """
+        params = {"component": component}
+        return self._post("api/favorites/add", params=params)
+
+    def remove_favorite(self, component):
+        """
+        Remove a component as favorite.
+        :param component: Component key
+        """
+        params = {"component": component}
+        return self._post("api/favorites/remove", params=params)
+
+    def search_favorites(self, p=None, ps=None):
+        """
+        Search for favorites.
+        :param p: Page number
+        :param ps: Page size
+        """
+        params = {}
+        if p:
+            params["p"] = p
+        if ps:
+            params["ps"] = ps
+        return self._get("api/favorites/search", params=params)

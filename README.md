@@ -53,19 +53,19 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] Navigate through components based on the chosen strategy (`api/components/tree`)
 
 ### Duplications
-- [ ] Get duplications (`api/duplications/show`)
+- [x] Get duplications (`api/duplications/show`)
 
 ### Editions
-- [ ] Enable a license 7-days grace period if the Server ID is invalid (`api/editions/activate_grace_period`)
-- [ ] Return the validity of the license (`api/editions/is_valid_license`)
-- [ ] Set the license for enabling features of commercial editions (`api/editions/set_license`)
-- [ ] Show information about currently installed license (`api/editions/show_license`)
-- [ ] Un-sets license (`api/editions/unset_license`)
+- [x] Enable a license 7-days grace period if the Server ID is invalid (`api/editions/activate_grace_period`)
+- [x] Return the validity of the license (`api/editions/is_valid_license`)
+- [x] Set the license for enabling features of commercial editions (`api/editions/set_license`)
+- [x] Show information about currently installed license (`api/editions/show_license`)
+- [x] Un-sets license (`api/editions/unset_license`)
 
 ### Favorites
-- [ ] Add a component as favorite (`api/favorites/add`)
-- [ ] Remove a component as favorite (`api/favorites/remove`)
-- [ ] Search for favorites (`api/favorites/search`)
+- [x] Add a component as favorite (`api/favorites/add`)
+- [x] Remove a component as favorite (`api/favorites/remove`)
+- [x] Search for favorites (`api/favorites/search`)
 
 ### Hotspots
 - [ ] Add a comment to a Security Hotspot (`api/hotspots/add_comment`)
