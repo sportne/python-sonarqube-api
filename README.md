@@ -7,8 +7,8 @@ A Python wrapper for the Sonarqube Web API that allows you to easily interact wi
 This is a list of features that need to be implemented to consider this a complete SonarQube Python API client.
 
 ### Authentication
-- [ ] Support for authentication using user tokens.
-- [ ] Support for authentication using login/password (legacy).
+- [x] Support for authentication using user tokens.
+- [x] Support for authentication using login/password (legacy).
 
 ### Projects
 - [ ] Search for projects.
