@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch
-from src.sonarqube import SonarQubeAPI
+from src.sonarqube import SonarQube
 
 
 class TestSonarQubeComponents(unittest.TestCase):
 
     def setUp(self):
-        self.sonar = SonarQubeAPI(host="http://localhost:9000", token="test_token")
+        self.sonar = SonarQube(host="http://localhost:9000", token="test_token")
 
     def test_get_components_app(self):
         with patch.object(self.sonar.session, "get") as mock_get:

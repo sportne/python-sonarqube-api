@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import patch
-from src.sonarqube import SonarQubeAPI
+from src.sonarqube import SonarQube
 
 
 class TestIssues(unittest.TestCase):
     def setUp(self):
-        self.sonar = SonarQubeAPI(host="http://localhost:9000", token="my_token")
+        self.sonar = SonarQube(host="http://localhost:9000", token="my_token")
 
     def test_search_issues(self):
         with patch.object(self.sonar.session, "get") as mock_get:

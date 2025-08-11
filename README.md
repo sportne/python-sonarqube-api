@@ -175,46 +175,46 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] Retrieve a token for project badge access (`api/project_badges/token`)
 
 ### Project Branches
-- [ ] Delete a non-main branch (`api/project_branches/delete`)
-- [ ] Gets whether a project is AI Code Assured (`api/project_branches/get_ai_code_assurance`)
-- [ ] List the branches of a project (`api/project_branches/list`)
-- [ ] Rename the main branch (`api/project_branches/rename`)
-- [ ] Protect a specific branch from automatic deletion (`api/project_branches/set_automatic_deletion_protection`)
-- [ ] Set a new main branch (`api/project_branches/set_main`)
+- [x] Delete a non-main branch (`api/project_branches/delete`)
+- [x] Gets whether a project is AI Code Assured (`api/project_branches/get_ai_code_assurance`)
+- [x] List the branches of a project (`api/project_branches/list`)
+- [x] Rename the main branch (`api/project_branches/rename`)
+- [x] Protect a specific branch from automatic deletion (`api/project_branches/set_automatic_deletion_protection`)
+- [x] Set a new main branch (`api/project_branches/set_main`)
 
 ### Project Dump
-- [ ] Triggers project dump (`api/project_dump/export`)
-- [ ] Triggers the import of a project dump (`api/project_dump/import`)
-- [ ] Provide the import and export status of a project (`api/project_dump/status`)
+- [x] Triggers project dump (`api/project_dump/export`)
+- [x] Triggers the import of a project dump (`api/project_dump/import`)
+- [x] Provide the import and export status of a project (`api/project_dump/status`)
 
 ### Project Links
-- [ ] Create a new project link (`api/project_links/create`)
-- [ ] Delete existing project link (`api/project_links/delete`)
-- [ ] List links of a project (`api/project_links/search`)
+- [x] Create a new project link (`api/project_links/create`)
+- [x] Delete existing project link (`api/project_links/delete`)
+- [x] List links of a project (`api/project_links/search`)
 
 ### Project Pull Requests
-- [ ] Delete a pull request (`api/project_pull_requests/delete`)
-- [ ] List the pull requests of a project (`api/project_pull_requests/list`)
+- [x] Delete a pull request (`api/project_pull_requests/delete`)
+- [x] List the pull requests of a project (`api/project_pull_requests/list`)
 
 ### Project Tags
-- [ ] Search tags (`api/project_tags/search`)
-- [ ] Set tags on a project (`api/project_tags/set`)
+- [x] Search tags (`api/project_tags/search`)
+- [x] Set tags on a project (`api/project_tags/set`)
 
 ### Projects
-- [ ] Delete one or several projects (`api/projects/bulk_delete`)
+- [x] Delete one or several projects (`api/projects/bulk_delete`)
 - [x] Create a project (`api/projects/create`)
 - [x] Delete a project (`api/projects/delete`)
-- [ ] Export all findings of a project branch (`api/projects/export_findings`)
-- [ ] Get whether a project contains AI code (`api/projects/get_contains_ai_code`)
-- [ ] Get detected AI code (`api/projects/get_detected_ai_code`)
-- [ ] Get license usage of projects (`api/projects/license_usage`)
+- [x] Export all findings of a project branch (`api/projects/export_findings`)
+- [x] Get whether a project contains AI code (`api/projects/get_contains_ai_code`)
+- [x] Get detected AI code (`api/projects/get_detected_ai_code`)
+- [x] Get license usage of projects (`api/projects/license_usage`)
 - [x] Search for projects (`api/projects/search`)
-- [ ] Return list of projects with 'Administer' permission (`api/projects/search_my_projects`)
-- [ ] List projects that a user can scan (`api/projects/search_my_scannable_projects`)
-- [ ] Sets if the project contains AI code (`api/projects/set_contains_ai_code`)
-- [ ] Update the default visibility for new projects (`api/projects/update_default_visibility`)
-- [ ] Update a project key (`api/projects/update_key`)
-- [ ] Updates visibility of a project (`api/projects/update_visibility`)
+- [x] Return list of projects with 'Administer' permission (`api/projects/search_my_projects`)
+- [x] List projects that a user can scan (`api/projects/search_my_scannable_projects`)
+- [x] Sets if the project contains AI code (`api/projects/set_contains_ai_code`)
+- [x] Update the default visibility for new projects (`api/projects/update_default_visibility`)
+- [x] Update a project key (`api/projects/update_key`)
+- [x] Updates visibility of a project (`api/projects/update_visibility`)
 
 ### Quality Gates
 - [ ] Allow a group to edit a Quality Gate (`api/qualitygates/add_group`)

@@ -1,7 +1,7 @@
 import requests
 
 
-class SonarQubeAPI:
+class SonarQube:
     def __init__(self, host=None, token=None, user=None, password=None):
         """
         Create a SonarQube API client.
@@ -40,31 +40,6 @@ class SonarQubeAPI:
         """
         response = self._get("api/authentication/validate")
         return response.status_code == 200 and response.json().get("valid") is True
-
-    def search_projects(self, q):
-        """
-        Search for projects.
-        :param q: The query to search for.
-        """
-        params = {"q": q}
-        return self._get("api/projects/search", params=params)
-
-    def create_project(self, project_key, name):
-        """
-        Create a new project.
-        :param project_key: The key of the new project.
-        :param name: The name of the new project.
-        """
-        params = {"project": project_key, "name": name}
-        return self._post("api/projects/create", params=params)
-
-    def delete_project(self, project_key):
-        """
-        Delete a project.
-        :param project_key: The key of the project to delete.
-        """
-        params = {"project": project_key}
-        return self._post("api/projects/delete", params=params)
 
     def search_issues(self, **kwargs):
         """
@@ -1306,3 +1281,306 @@ class SonarQubeAPI:
         """
         params = {"project": project}
         return self._get("api/project_badges/token", params=params)
+
+    # SonarQube Project Branches API
+    def delete_project_branch(self, project, branch):
+        """
+        Delete a non-main branch of a project.
+        :param project: Project key
+        :param branch: Branch name
+        """
+        params = {"project": project, "branch": branch}
+        return self._post("api/project_branches/delete", params=params)
+
+    def get_project_branch_ai_code_assurance(self, project, branch=None):
+        """
+        Gets whether a project passed as parameter is AI Code Assured or not.
+        :param project: Project key
+        :param branch: Branch key
+        """
+        params = {"project": project}
+        if branch:
+            params["branch"] = branch
+        return self._get("api/project_branches/get_ai_code_assurance", params=params)
+
+    def list_project_branches(self, project):
+        """
+        List the branches of a project.
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._get("api/project_branches/list", params=params)
+
+    def rename_project_branch(self, project, name):
+        """
+        Rename the main branch of a project.
+        :param project: Project key
+        :param name: New branch name
+        """
+        params = {"project": project, "name": name}
+        return self._post("api/project_branches/rename", params=params)
+
+    def set_project_branch_automatic_deletion_protection(
+        self, project, branch, is_protected
+    ):
+        """
+        Protect a specific branch from automatic deletion.
+        :param project: Project key
+        :param branch: Branch name
+        :param is_protected: Boolean indicating if the branch should be protected
+        """
+        params = {"project": project, "branch": branch, "isProtected": is_protected}
+        return self._post(
+            "api/project_branches/set_automatic_deletion_protection", params=params
+        )
+
+    def set_project_main_branch(self, project, branch):
+        """
+        Allow to set a new main branch.
+        :param project: Project key
+        :param branch: Branch name
+        """
+        params = {"project": project, "branch": branch}
+        return self._post("api/project_branches/set_main", params=params)
+
+    # SonarQube Project Dump API
+    def export_project_dump(self, project, projectKey=None):
+        """
+        Triggers project dump so that the project can be imported to another SonarQube server.
+        :param project: Project key
+        :param projectKey: Project key (optional)
+        """
+        params = {"project": project}
+        if projectKey:
+            params["projectKey"] = projectKey
+        return self._post("api/project_dump/export", params=params)
+
+    def import_project_dump(self, file, project=None, projectKey=None):
+        """
+        Triggers the import of a project dump.
+        :param file: Path to the project dump file
+        :param project: Project key (optional)
+        :param projectKey: Project key (optional)
+        """
+        params = {}
+        if project:
+            params["project"] = project
+        if projectKey:
+            params["projectKey"] = projectKey
+        with open(file, "rb") as f:
+            files = {"file": f}
+            return self._post("api/project_dump/import", params=params, files=files)
+
+    def get_project_dump_status(self, project=None, projectKey=None, id=None):
+        """
+        Provide the import and export status of a project.
+        :param project: Project key (optional)
+        :param projectKey: Project key (optional)
+        :param id: Project id (optional)
+        """
+        params = {}
+        if project:
+            params["project"] = project
+        if projectKey:
+            params["projectKey"] = projectKey
+        if id:
+            params["id"] = id
+        return self._get("api/project_dump/status", params=params)
+
+    # SonarQube Project Links API
+    def create_project_link(self, projectId, name, url):
+        """
+        Create a new project link.
+        :param projectId: Project Id
+        :param name: Link name
+        :param url: Link url
+        """
+        params = {"projectId": projectId, "name": name, "url": url}
+        return self._post("api/project_links/create", params=params)
+
+    def delete_project_link(self, id):
+        """
+        Delete existing project link.
+        :param id: Link ID
+        """
+        params = {"id": id}
+        return self._post("api/project_links/delete", params=params)
+
+    def search_project_links(self, projectId):
+        """
+        List links of a project.
+        :param projectId: Project Id
+        """
+        params = {"projectId": projectId}
+        return self._get("api/project_links/search", params=params)
+
+    # SonarQube Project Pull Requests API
+    def delete_project_pull_request(self, project, pullRequest):
+        """
+        Delete a pull request.
+        :param project: Project key
+        :param pullRequest: Pull request key
+        """
+        params = {"project": project, "pullRequest": pullRequest}
+        return self._post("api/project_pull_requests/delete", params=params)
+
+    def list_project_pull_requests(self, project):
+        """
+        List the pull requests of a project.
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._get("api/project_pull_requests/list", params=params)
+
+    # SonarQube Project Tags API
+    def search_project_tags(self, q=None):
+        """
+        Search tags
+        :param q: Limit search to tags that contain the supplied string.
+        """
+        params = {}
+        if q:
+            params["q"] = q
+        return self._get("api/project_tags/search", params=params)
+
+    def set_project_tags(self, project, tags):
+        """
+        Set tags on a project.
+        :param project: Project key
+        :param tags: Comma-separated list of tags
+        """
+        params = {"project": project, "tags": tags}
+        return self._post("api/project_tags/set", params=params)
+
+    # SonarQube Projects API
+    def search_projects(self, q):
+        """
+        Search for projects.
+        :param q: The query to search for.
+        """
+        params = {"q": q}
+        return self._get("api/projects/search", params=params)
+
+    def create_project(self, project_key, name):
+        """
+        Create a new project.
+        :param project_key: The key of the new project.
+        :param name: The name of the new project.
+        """
+        params = {"project": project_key, "name": name}
+        return self._post("api/projects/create", params=params)
+
+    def delete_project(self, project_key):
+        """
+        Delete a project.
+        :param project_key: The key of the project to delete.
+        """
+        params = {"project": project_key}
+        return self._post("api/projects/delete", params=params)
+
+    def bulk_delete_projects(self, analyzedBefore=None, projects=None, q=None):
+        """
+        Delete one or several projects.
+        :param analyzedBefore: Delete projects analyzed before the given date (inclusive).
+        :param projects: Comma-separated list of project keys
+        :param q: Query string
+        """
+        params = {}
+        if analyzedBefore:
+            params["analyzedBefore"] = analyzedBefore
+        if projects:
+            params["projects"] = projects
+        if q:
+            params["q"] = q
+        return self._post("api/projects/bulk_delete", params=params)
+
+    def export_project_findings(self, project, branch=None, pullRequest=None):
+        """
+        Export all findings (issues and hotspots) of a specific project branch.
+        :param project: Project key
+        :param branch: Branch key
+        :param pullRequest: Pull request key
+        """
+        params = {"project": project}
+        if branch:
+            params["branch"] = branch
+        if pullRequest:
+            params["pullRequest"] = pullRequest
+        return self._get("api/projects/export_findings", params=params)
+
+    def get_project_contains_ai_code(self, project):
+        """
+        Get whether a project contains AI code or not
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._get("api/projects/get_contains_ai_code", params=params)
+
+    def get_project_detected_ai_code(self, project):
+        """
+        Get detected AI code
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._get("api/projects/get_detected_ai_code", params=params)
+
+    def get_project_license_usage(self):
+        """
+        Help admins to understand how much each project affects the total number of lines of code.
+        """
+        return self._get("api/projects/license_usage")
+
+    def search_my_projects(self, organization=None):
+        """
+        Return list of projects for which the current user has 'Administer' permission.
+        :param organization: Organization key
+        """
+        params = {}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/projects/search_my_projects", params=params)
+
+    def search_my_scannable_projects(self, organization=None):
+        """
+        List projects that a user can scan.
+        :param organization: Organization key
+        """
+        params = {}
+        if organization:
+            params["organization"] = organization
+        return self._get("api/projects/search_my_scannable_projects", params=params)
+
+    def set_project_contains_ai_code(self, project, contains_ai_code):
+        """
+        Sets if the project passed as parameter contains or not AI code according to the value of the contains_ai_code parameter.
+        :param project: Project key
+        :param contains_ai_code: Boolean indicating if the project contains AI code
+        """
+        params = {"project": project, "contains_ai_code": contains_ai_code}
+        return self._post("api/projects/set_contains_ai_code", params=params)
+
+    def update_project_default_visibility(self, visibility):
+        """
+        Update the default visibility for new projects.
+        :param visibility: New visibility (private or public)
+        """
+        params = {"visibility": visibility}
+        return self._post("api/projects/update_default_visibility", params=params)
+
+    def update_project_key(self, project, new_key):
+        """
+        Update a project all its sub-components keys.
+        :param project: Project key
+        :param new_key: New project key
+        """
+        params = {"from": project, "to": new_key}
+        return self._post("api/projects/update_key", params=params)
+
+    def update_project_visibility(self, project, visibility):
+        """
+        Updates visibility of a project, application or a portfolio.
+        :param project: Project, application or portfolio key
+        :param visibility: New visibility (private or public)
+        """
+        params = {"project": project, "visibility": visibility}
+        return self._post("api/projects/update_visibility", params=params)
