@@ -100,31 +100,31 @@ This is a list of features that need to be implemented to consider this a comple
 - [x] List tags matching a given query (`api/issues/tags`)
 
 ### Languages
-- [ ] List supported programming languages (`api/languages/list`)
+- [x] List supported programming languages (`api/languages/list`)
 
 ### Measures
-- [ ] Return component with specified measures (`api/measures/component`)
-- [ ] Navigate through components with specified measures (`api/measures/component_tree`)
-- [ ] Search for project measures (`api/measures/search`)
-- [ ] Search measures history of a component (`api/measures/search_history`)
+- [x] Return component with specified measures (`api/measures/component`)
+- [x] Navigate through components with specified measures (`api/measures/component_tree`)
+- [x] Search for project measures (`api/measures/search`)
+- [x] Search measures history of a component (`api/measures/search_history`)
 
 ### Metrics
-- [ ] Search for metrics (`api/metrics/search`)
-- [ ] List all available metric types (`api/metrics/types`)
+- [x] Search for metrics (`api/metrics/search`)
+- [x] List all available metric types (`api/metrics/types`)
 
 ### Monitoring
-- [ ] Return monitoring metrics in Prometheus format (`api/monitoring/metrics`)
+- [x] Return monitoring metrics in Prometheus format (`api/monitoring/metrics`)
 
 ### New Code Periods
-- [ ] Lists the new code definition for all branches in a project (`api/new_code_periods/list`)
-- [ ] Updates the new code definition (`api/new_code_periods/set`)
-- [ ] Shows the new code definition (`api/new_code_periods/show`)
-- [ ] Unsets the new code definition (`api/new_code_periods/unset`)
+- [x] Lists the new code definition for all branches in a project (`api/new_code_periods/list`)
+- [x] Updates the new code definition (`api/new_code_periods/set`)
+- [x] Shows the new code definition (`api/new_code_periods/show`)
+- [x] Unsets the new code definition (`api/new_code_periods/unset`)
 
 ### Notifications
-- [ ] Add a notification (`api/notifications/add`)
-- [ ] List notifications (`api/notifications/list`)
-- [ ] Remove a notification (`api/notifications/remove`)
+- [x] Add a notification (`api/notifications/add`)
+- [x] List notifications (`api/notifications/list`)
+- [x] Remove a notification (`api/notifications/remove`)
 
 ### Permissions
 - [ ] Add a permission to a group (`api/permissions/add_group`)

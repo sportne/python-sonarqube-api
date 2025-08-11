@@ -767,3 +767,198 @@ class SonarQubeAPI:
         """
         params = {"hotspot": hotspot}
         return self._get("api/hotspots/show", params=params)
+
+    # SonarQube Languages API
+    def list_languages(self, q=None, ps=None):
+        """
+        List supported programming languages.
+        :param q: A pattern to match language keys/names against.
+        :param ps: The size of the list to return, 0 for all languages.
+        """
+        params = {}
+        if q:
+            params["q"] = q
+        if ps:
+            params["ps"] = ps
+        return self._get("api/languages/list", params=params)
+
+    # SonarQube Measures API
+    def get_measures_component(
+        self,
+        component,
+        metricKeys,
+        branch=None,
+        pullRequest=None,
+        additionalFields=None,
+    ):
+        """
+        Return component with specified measures.
+        :param component: Component key
+        :param metricKeys: Comma-separated list of metric keys
+        :param branch: Branch key
+        :param pullRequest: Pull request ID
+        :param additionalFields: Comma-separated list of additional fields
+        """
+        params = {"component": component, "metricKeys": metricKeys}
+        if branch:
+            params["branch"] = branch
+        if pullRequest:
+            params["pullRequest"] = pullRequest
+        if additionalFields:
+            params["additionalFields"] = additionalFields
+        return self._get("api/measures/component", params=params)
+
+    def get_measures_component_tree(self, component, metricKeys, **kwargs):
+        """
+        Navigate through components based on the chosen strategy with specified measures.
+        :param component: Base component key
+        :param metricKeys: Comma-separated list of metric keys
+        :param kwargs: Additional parameters
+        """
+        params = {"component": component, "metricKeys": metricKeys}
+        params.update(kwargs)
+        return self._get("api/measures/component_tree", params=params)
+
+    def search_measures(self, projectKeys, metricKeys, **kwargs):
+        """
+        Search for project measures ordered by project names.
+        :param projectKeys: Comma-separated list of project keys
+        :param metricKeys: Comma-separated list of metric keys
+        :param kwargs: Additional parameters
+        """
+        params = {"projectKeys": projectKeys, "metricKeys": metricKeys}
+        params.update(kwargs)
+        return self._get("api/measures/search", params=params)
+
+    def search_measures_history(self, component, metrics, **kwargs):
+        """
+        Search measures history of a component.
+        :param component: Component key
+        :param metrics: Comma-separated list of metric keys
+        :param kwargs: Additional parameters
+        """
+        params = {"component": component, "metrics": metrics}
+        params.update(kwargs)
+        return self._get("api/measures/search_history", params=params)
+
+    # SonarQube Metrics API
+    def search_metrics(self, p=None, ps=None):
+        """
+        Search for metrics.
+        :param p: Page number
+        :param ps: Page size
+        """
+        params = {}
+        if p:
+            params["p"] = p
+        if ps:
+            params["ps"] = ps
+        return self._get("api/metrics/search", params=params)
+
+    def get_metric_types(self):
+        """
+        List all available metric types.
+        """
+        return self._get("api/metrics/types")
+
+    # SonarQube Monitoring API
+    def get_monitoring_metrics(self):
+        """
+        Return monitoring metrics in Prometheus format.
+        """
+        return self._get("api/monitoring/metrics")
+
+    # SonarQube New Code Periods API
+    def list_new_code_periods(self, project):
+        """
+        Lists the new code definition for all branches in a project.
+        :param project: Project key
+        """
+        params = {"project": project}
+        return self._get("api/new_code_periods/list", params=params)
+
+    def set_new_code_period(self, project=None, branch=None, type=None, value=None):
+        """
+        Updates the new code definition on different levels.
+        :param project: Project key
+        :param branch: Branch key
+        :param type: Type of new code definition
+        :param value: Value of new code definition
+        """
+        params = {}
+        if project:
+            params["project"] = project
+        if branch:
+            params["branch"] = branch
+        if type:
+            params["type"] = type
+        if value:
+            params["value"] = value
+        return self._post("api/new_code_periods/set", params=params)
+
+    def show_new_code_period(self, project=None, branch=None):
+        """
+        Shows the new code definition.
+        :param project: Project key
+        :param branch: Branch key
+        """
+        params = {}
+        if project:
+            params["project"] = project
+        if branch:
+            params["branch"] = branch
+        return self._get("api/new_code_periods/show", params=params)
+
+    def unset_new_code_period(self, project=None, branch=None):
+        """
+        Unsets the new code definition for a branch, project or global.
+        :param project: Project key
+        :param branch: Branch key
+        """
+        params = {}
+        if project:
+            params["project"] = project
+        if branch:
+            params["branch"] = branch
+        return self._post("api/new_code_periods/unset", params=params)
+
+    # SonarQube Notifications API
+    def add_notification(self, login, type, channel=None, project=None):
+        """
+        Add a notification.
+        :param login: User login
+        :param type: Notification type
+        :param channel: Channel
+        :param project: Project key
+        """
+        params = {"login": login, "type": type}
+        if channel:
+            params["channel"] = channel
+        if project:
+            params["project"] = project
+        return self._post("api/notifications/add", params=params)
+
+    def list_notifications(self, login=None):
+        """
+        List notifications.
+        :param login: User login
+        """
+        params = {}
+        if login:
+            params["login"] = login
+        return self._get("api/notifications/list", params=params)
+
+    def remove_notification(self, login, type, channel=None, project=None):
+        """
+        Remove a notification.
+        :param login: User login
+        :param type: Notification type
+        :param channel: Channel
+        :param project: Project key
+        """
+        params = {"login": login, "type": type}
+        if channel:
+            params["channel"] = channel
+        if project:
+            params["project"] = project
+        return self._post("api/notifications/remove", params=params)
