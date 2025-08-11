@@ -1,174 +1,170 @@
 import unittest
-from unittest.mock import patch, MagicMock
-from src.sonarqube import SonarQubeAPI
+from unittest.mock import patch
+from src.sonarqube import SonarQube
 
 
 class TestIssues(unittest.TestCase):
-    @patch("src.sonarqube.requests.Session")
-    def test_search_issues(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.get.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.search_issues(componentKeys="my-project")
-        mock_session.get.assert_called_once_with(
-            "http://localhost:9000/api/issues/search",
-            params={"componentKeys": "my-project"},
-        )
+    def setUp(self):
+        self.sonar = SonarQube(host="http://localhost:9000", token="my_token")
 
-    @patch("src.sonarqube.requests.Session")
-    def test_get_issue_details(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.get.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.get_issue_details("my-issue-key")
-        mock_session.get.assert_called_once_with(
-            "http://localhost:9000/api/issues/search",
-            params={"issues": "my-issue-key"},
-        )
+    def test_search_issues(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.search_issues(componentKeys="my-project")
+            mock_get.assert_called_once_with(
+                "http://localhost:9000/api/issues/search",
+                params={"componentKeys": "my-project"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_assign_issue(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.assign_issue("my-issue-key", "my-user")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/assign",
-            params={"issue": "my-issue-key", "assignee": "my-user"},
-        )
+    def test_get_issue_details(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.get_issue_details("my-issue-key")
+            mock_get.assert_called_once_with(
+                "http://localhost:9000/api/issues/search",
+                params={"issues": "my-issue-key"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_add_comment_to_issue(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.add_comment_to_issue("my-issue-key", "my comment")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/add_comment",
-            params={"issue": "my-issue-key", "text": "my comment"},
-        )
+    def test_assign_issue(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.assign_issue("my-issue-key", "my-user")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/assign",
+                params={"issue": "my-issue-key", "assignee": "my-user"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_transition_issue(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.transition_issue("my-issue-key", "confirm")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/do_transition",
-            params={"issue": "my-issue-key", "transition": "confirm"},
-        )
+    def test_add_comment_to_issue(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.add_comment_to_issue("my-issue-key", "my comment")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/add_comment",
+                params={"issue": "my-issue-key", "text": "my comment"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_bulk_change_issues(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.bulk_change_issues(issues="my-issue-1,my-issue-2", severity="MAJOR")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/bulk_change",
-            params={"issues": "my-issue-1,my-issue-2", "severity": "MAJOR"},
-        )
+    def test_transition_issue(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.transition_issue("my-issue-key", "confirm")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/do_transition",
+                params={"issue": "my-issue-key", "transition": "confirm"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_get_issue_changelog(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.get.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.get_issue_changelog("my-issue-key")
-        mock_session.get.assert_called_once_with(
-            "http://localhost:9000/api/issues/changelog",
-            params={"issue": "my-issue-key"},
-        )
+    def test_bulk_change_issues(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.bulk_change_issues(
+                issues="my-issue-1,my-issue-2", severity="MAJOR"
+            )
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/bulk_change",
+                params={"issues": "my-issue-1,my-issue-2", "severity": "MAJOR"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_delete_comment(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 204
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.delete_comment("my-comment-key")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/delete_comment",
-            params={"comment": "my-comment-key"},
-        )
+    def test_get_issue_changelog(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.get_issue_changelog("my-issue-key")
+            mock_get.assert_called_once_with(
+                "http://localhost:9000/api/issues/changelog",
+                params={"issue": "my-issue-key"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_edit_comment(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.edit_comment("my-comment-key", "new comment")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/edit_comment",
-            params={"comment": "my-comment-key", "text": "new comment"},
-        )
+    def test_delete_comment(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.delete_comment("my-comment-key")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/delete_comment",
+                params={"comment": "my-comment-key"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_set_issue_severity(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.set_issue_severity("my-issue-key", "CRITICAL")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/set_severity",
-            params={"issue": "my-issue-key", "severity": "CRITICAL"},
-        )
+    def test_edit_comment(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.edit_comment("my-comment-key", "new comment")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/edit_comment",
+                params={"comment": "my-comment-key", "text": "new comment"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_set_issue_tags(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.post.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.set_issue_tags("my-issue-key", "tag1,tag2")
-        mock_session.post.assert_called_once_with(
-            "http://localhost:9000/api/issues/set_tags",
-            params={"issue": "my-issue-key", "tags": "tag1,tag2"},
-        )
+    def test_set_issue_severity(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.set_issue_severity("my-issue-key", "CRITICAL")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/set_severity",
+                params={"issue": "my-issue-key", "severity": "CRITICAL"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_get_tags(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.get.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.get_tags(q="security")
-        mock_session.get.assert_called_once_with(
-            "http://localhost:9000/api/issues/tags",
-            params={"q": "security"},
-        )
+    def test_set_issue_tags(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.set_issue_tags("my-issue-key", "tag1,tag2")
+            mock_post.assert_called_once_with(
+                "http://localhost:9000/api/issues/set_tags",
+                params={"issue": "my-issue-key", "tags": "tag1,tag2"},
+            )
 
-    @patch("src.sonarqube.requests.Session")
-    def test_get_authors(self, mock_session_cls):
-        mock_session = mock_session_cls.return_value
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_session.get.return_value = mock_response
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
-        client.get_authors(q="john")
-        mock_session.get.assert_called_once_with(
-            "http://localhost:9000/api/issues/authors",
-            params={"q": "john"},
-        )
+    def test_get_tags(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.get_tags(q="security")
+            mock_get.assert_called_once_with(
+                "http://localhost:9000/api/issues/tags",
+                params={"q": "security"},
+            )
+
+    def test_get_authors(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.get_authors(q="john")
+            mock_get.assert_called_once_with(
+                "http://localhost:9000/api/issues/authors",
+                params={"q": "john"},
+            )
+
+    def test_get_anticipated_issue_transitions(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.get_anticipated_issue_transitions(issue="my-issue")
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/issues/anticipated_transitions",
+                params={"issue": "my-issue"},
+            )
+
+    def test_get_issue_component_tags(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.get_issue_component_tags(component="my-component")
+            mock_get.assert_called_with(
+                "http://localhost:9000/api/issues/component_tags",
+                params={"component": "my-component"},
+            )
+
+    def test_export_issues_gitlab_sast(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.export_issues_gitlab_sast(project="my-project", branch="main")
+            mock_get.assert_called_with(
+                "http://localhost:9000/api/issues/gitlab_sast_export",
+                params={"project": "my-project", "branch": "main"},
+            )
+
+    def test_list_issues(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.list_issues(project="my-project")
+            mock_get.assert_called_with(
+                "http://localhost:9000/api/issues/list",
+                params={"project": "my-project"},
+            )
+
+    def test_pull_issues(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.pull_issues(branch="main", project="my-project")
+            mock_get.assert_called_with(
+                "http://localhost:9000/api/issues/pull",
+                params={"branch": "main", "project": "my-project"},
+            )
+
+    def test_pull_taint_issues(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.pull_taint_issues(branch="main", project="my-project")
+            mock_get.assert_called_with(
+                "http://localhost:9000/api/issues/pull_taint",
+                params={"branch": "main", "project": "my-project"},
+            )
+
+    def test_reindex_issues(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.reindex_issues(project="my-project")
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/issues/reindex",
+                params={"project": "my-project"},
+            )

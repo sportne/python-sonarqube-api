@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from src.sonarqube import SonarQubeAPI
+from src.sonarqube import SonarQube
 
 
 class TestAuthentication(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestAuthentication(unittest.TestCase):
         mock_response.json.return_value = {"valid": True}
         mock_session.get.return_value = mock_response
 
-        client = SonarQubeAPI(host="http://localhost:9000", token="my_token")
+        client = SonarQube(host="http://localhost:9000", token="my_token")
         self.assertTrue(client.is_authenticated())
         self.assertEqual(client.session.auth, ("my_token", ""))
         mock_session.get.assert_called_once_with(
@@ -34,7 +34,7 @@ class TestAuthentication(unittest.TestCase):
         mock_response.json.return_value = {"valid": True}
         mock_session.get.return_value = mock_response
 
-        client = SonarQubeAPI(
+        client = SonarQube(
             host="http://localhost:9000", user="my_user", password="my_password"
         )
         self.assertTrue(client.is_authenticated())
