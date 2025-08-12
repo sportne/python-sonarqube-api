@@ -1,10 +1,12 @@
 # python-sonarqube-api
 
-A Python wrapper for the Sonarqube Web API that allows you to easily interact with your SonarQube instance. This library will provide access to the full functionality of the SonarQube API, allowing you to automate tasks, extract data, and integrate SonarQube into your existing workflows.
+A Python wrapper for the Sonarqube Web API that allows you to easily interact with your SonarQube instance.
+
+This library provides access to almost the full functionality of the SonarQube API, allowing you to automate tasks, extract data, and integrate SonarQube into your existing workflows.
 
 ## Features Checklist
 
-This is a list of features that need to be implemented to consider this a complete SonarQube Python API client.
+This is a list of features that have been implemented in this SonarQube Python API client.
 
 ### Applications
 - [x] Add a project to an application (`api/applications/add_project`)
@@ -283,9 +285,11 @@ This is a list of features that need to be implemented to consider this a comple
 ### Users
 - [x] Search for users (`api/users/search`)
 - [ ] Get user details (`api/users/show`)
+- [ ] Get user by external identity (`api/users/show_by_external_identity`)
 - [x] Create a new user (`api/users/create`)
 - [x] Deactivate a user (`api/users/deactivate`)
 - [x] Update user properties (`api/users/update`)
+- [ ] Update user login (`api/users/update_login`)
 - [x] Change user password (`api/users/change_password`)
 - [x] Get user groups (`api/users/groups`)
 - [x] Get user tokens (`api/user_tokens/search`)
@@ -311,10 +315,18 @@ This is a list of features that need to be implemented to consider this a comple
 ├── requirements.txt
 ├── setup.py
 ├── src
-│   └── __init__.py
-└── tests
-    ├── __init__.py
-    └── test_placeholder.py
+│   ├── __init__.py
+│   └── sonarqube
+│       ├── __init__.py
+│       ├── client.py
+│       └── ...
+├── tests
+│   ├── __init__.py
+│   ├── test_applications.py
+│   └── ...
+└── documentation
+    ├── index.md
+    └── ...
 ```
 
 ### Formatting
@@ -336,3 +348,9 @@ pytest
 ## API Documentation
 
 The SonarQube REST API documentation can be found here: https://next.sonarqube.com/sonarqube/web_api/api/
+
+## Future Work
+
+- Implement the missing API endpoints.
+- Add documentation for the `users` API category.
+- Add more examples and use cases to the documentation.
