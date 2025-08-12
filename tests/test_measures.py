@@ -10,7 +10,7 @@ class TestSonarQubeMeasures(unittest.TestCase):
 
     def test_get_measures_component(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.get_measures_component(
+            self.sonar.measures.get_measures_component(
                 component="my-project", metricKeys="ncloc,coverage"
             )
             mock_get.assert_called_with(
@@ -20,7 +20,7 @@ class TestSonarQubeMeasures(unittest.TestCase):
 
     def test_get_measures_component_tree(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.get_measures_component_tree(
+            self.sonar.measures.get_measures_component_tree(
                 component="my-project", metricKeys="ncloc,coverage", s="metric,name"
             )
             mock_get.assert_called_with(
@@ -34,7 +34,7 @@ class TestSonarQubeMeasures(unittest.TestCase):
 
     def test_search_measures(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.search_measures(
+            self.sonar.measures.search_measures(
                 projectKeys="my-project", metricKeys="ncloc,coverage"
             )
             mock_get.assert_called_with(
@@ -44,7 +44,7 @@ class TestSonarQubeMeasures(unittest.TestCase):
 
     def test_search_measures_history(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.search_measures_history(
+            self.sonar.measures.search_measures_history(
                 component="my-project", metrics="ncloc,coverage"
             )
             mock_get.assert_called_with(

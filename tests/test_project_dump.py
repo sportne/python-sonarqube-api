@@ -10,7 +10,7 @@ class TestSonarQubeProjectDump(unittest.TestCase):
 
     def test_export_project_dump(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.export_project_dump(project="my-project")
+            self.sonar.project_dump.export_project_dump(project="my-project")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/project_dump/export",
                 params={"project": "my-project"},
@@ -19,7 +19,9 @@ class TestSonarQubeProjectDump(unittest.TestCase):
     def test_import_project_dump(self):
         with patch.object(self.sonar.session, "post") as mock_post:
             with patch("builtins.open", mock_open(read_data=b"test")) as mock_file:
-                self.sonar.import_project_dump(file="my-dump.zip", project="my-project")
+                self.sonar.project_dump.import_project_dump(
+                    file="my-dump.zip", project="my-project"
+                )
                 mock_file.assert_called_with("my-dump.zip", "rb")
                 mock_post.assert_called_with(
                     "http://localhost:9000/api/project_dump/import",
@@ -29,7 +31,7 @@ class TestSonarQubeProjectDump(unittest.TestCase):
 
     def test_get_project_dump_status(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.get_project_dump_status(project="my-project")
+            self.sonar.project_dump.get_project_dump_status(project="my-project")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/project_dump/status",
                 params={"project": "my-project"},

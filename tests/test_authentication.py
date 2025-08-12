@@ -5,7 +5,7 @@ from src.sonarqube import SonarQube
 
 class TestAuthentication(unittest.TestCase):
 
-    @patch("src.sonarqube.requests.Session")
+    @patch("src.sonarqube.client.requests.Session")
     def test_token_authentication(self, mock_session_cls):
         """
         Test that the client correctly uses the provided token for authentication.
@@ -23,7 +23,7 @@ class TestAuthentication(unittest.TestCase):
             "http://localhost:9000/api/authentication/validate"
         )
 
-    @patch("src.sonarqube.requests.Session")
+    @patch("src.sonarqube.client.requests.Session")
     def test_user_password_authentication(self, mock_session_cls):
         """
         Test that the client correctly uses the provided user/password for auth.

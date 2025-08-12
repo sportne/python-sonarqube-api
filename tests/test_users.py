@@ -10,7 +10,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_search_users(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.search_users(q="my-user")
+            self.sonar.users.search_users(q="my-user")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/users/search",
                 params={"q": "my-user"},
@@ -18,7 +18,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_create_user(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.create_user(login="my-user", name="My User")
+            self.sonar.users.create_user(login="my-user", name="My User")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/users/create",
                 params={"login": "my-user", "name": "My User"},
@@ -26,7 +26,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_deactivate_user(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.deactivate_user(login="my-user")
+            self.sonar.users.deactivate_user(login="my-user")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/users/deactivate",
                 params={"login": "my-user"},
@@ -34,7 +34,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_update_user(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.update_user(login="my-user", name="new-name")
+            self.sonar.users.update_user(login="my-user", name="new-name")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/users/update",
                 params={"login": "my-user", "name": "new-name"},
@@ -42,7 +42,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_change_user_password(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.change_user_password(
+            self.sonar.users.change_user_password(
                 login="my-user", new_password="new-password"
             )
             mock_post.assert_called_with(
@@ -52,7 +52,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_get_user_groups(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.get_user_groups(login="my-user")
+            self.sonar.users.get_user_groups(login="my-user")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/users/groups",
                 params={"login": "my-user"},
@@ -60,7 +60,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_search_user_tokens(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.search_user_tokens(login="my-user")
+            self.sonar.users.search_user_tokens(login="my-user")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/user_tokens/search",
                 params={"login": "my-user"},
@@ -68,7 +68,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_generate_user_token(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.generate_user_token(login="my-user", name="my-token")
+            self.sonar.users.generate_user_token(login="my-user", name="my-token")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/user_tokens/generate",
                 params={"login": "my-user", "name": "my-token"},
@@ -76,7 +76,7 @@ class TestSonarQubeUsers(unittest.TestCase):
 
     def test_revoke_user_token(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.revoke_user_token(login="my-user", name="my-token")
+            self.sonar.users.revoke_user_token(login="my-user", name="my-token")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/user_tokens/revoke",
                 params={"login": "my-user", "name": "my-token"},
