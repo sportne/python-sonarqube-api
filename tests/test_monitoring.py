@@ -10,7 +10,7 @@ class TestSonarQubeMonitoring(unittest.TestCase):
 
     def test_get_monitoring_metrics(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.get_monitoring_metrics()
+            self.sonar.monitoring.get_monitoring_metrics()
             mock_get.assert_called_with("http://localhost:9000/api/monitoring/metrics")
 
 

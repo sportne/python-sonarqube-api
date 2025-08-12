@@ -10,7 +10,7 @@ class TestSonarQubeNotifications(unittest.TestCase):
 
     def test_add_notification(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.add_notification(
+            self.sonar.notifications.add_notification(
                 login="my-user", type="my-type", project="my-project"
             )
             mock_post.assert_called_with(
@@ -20,7 +20,7 @@ class TestSonarQubeNotifications(unittest.TestCase):
 
     def test_list_notifications(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.list_notifications(login="my-user")
+            self.sonar.notifications.list_notifications(login="my-user")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/notifications/list",
                 params={"login": "my-user"},
@@ -28,7 +28,7 @@ class TestSonarQubeNotifications(unittest.TestCase):
 
     def test_remove_notification(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.remove_notification(
+            self.sonar.notifications.remove_notification(
                 login="my-user", type="my-type", project="my-project"
             )
             mock_post.assert_called_with(

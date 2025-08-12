@@ -10,7 +10,7 @@ class TestSonarQubeLanguages(unittest.TestCase):
 
     def test_list_languages(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.list_languages(q="java")
+            self.sonar.languages.list_languages(q="java")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/languages/list", params={"q": "java"}
             )

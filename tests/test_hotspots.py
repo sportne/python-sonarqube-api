@@ -10,7 +10,9 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_add_hotspot_comment(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.add_hotspot_comment(hotspot="my-hotspot", text="my comment")
+            self.sonar.hotspots.add_hotspot_comment(
+                hotspot="my-hotspot", text="my comment"
+            )
             mock_post.assert_called_with(
                 "http://localhost:9000/api/hotspots/add_comment",
                 params={"hotspot": "my-hotspot", "text": "my comment"},
@@ -18,7 +20,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_assign_hotspot(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.assign_hotspot(hotspot="my-hotspot", assignee="my-user")
+            self.sonar.hotspots.assign_hotspot(hotspot="my-hotspot", assignee="my-user")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/hotspots/assign",
                 params={"hotspot": "my-hotspot", "assignee": "my-user"},
@@ -26,7 +28,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_change_hotspot_status(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.change_hotspot_status(
+            self.sonar.hotspots.change_hotspot_status(
                 hotspot="my-hotspot",
                 status="REVIEWED",
                 resolution="FIXED",
@@ -44,7 +46,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_delete_hotspot_comment(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.delete_hotspot_comment(comment="my-comment-key")
+            self.sonar.hotspots.delete_hotspot_comment(comment="my-comment-key")
             mock_post.assert_called_with(
                 "http://localhost:9000/api/hotspots/delete_comment",
                 params={"comment": "my-comment-key"},
@@ -52,7 +54,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_edit_hotspot_comment(self):
         with patch.object(self.sonar.session, "post") as mock_post:
-            self.sonar.edit_hotspot_comment(
+            self.sonar.hotspots.edit_hotspot_comment(
                 comment="my-comment-key", text="new comment"
             )
             mock_post.assert_called_with(
@@ -62,7 +64,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_list_hotspots(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.list_hotspots(projectKey="my-project", p=1, ps=10)
+            self.sonar.hotspots.list_hotspots(projectKey="my-project", p=1, ps=10)
             mock_get.assert_called_with(
                 "http://localhost:9000/api/hotspots/list",
                 params={"projectKey": "my-project", "p": 1, "ps": 10},
@@ -70,7 +72,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_pull_hotspots(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.pull_hotspots(branch="main", project="my-project")
+            self.sonar.hotspots.pull_hotspots(branch="main", project="my-project")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/hotspots/pull",
                 params={"branch": "main", "project": "my-project"},
@@ -78,7 +80,9 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_search_hotspots(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.search_hotspots(projectKey="my-project", status="TO_REVIEW")
+            self.sonar.hotspots.search_hotspots(
+                projectKey="my-project", status="TO_REVIEW"
+            )
             mock_get.assert_called_with(
                 "http://localhost:9000/api/hotspots/search",
                 params={"projectKey": "my-project", "status": "TO_REVIEW"},
@@ -86,7 +90,7 @@ class TestSonarQubeHotspots(unittest.TestCase):
 
     def test_show_hotspot(self):
         with patch.object(self.sonar.session, "get") as mock_get:
-            self.sonar.show_hotspot(hotspot="my-hotspot")
+            self.sonar.hotspots.show_hotspot(hotspot="my-hotspot")
             mock_get.assert_called_with(
                 "http://localhost:9000/api/hotspots/show",
                 params={"hotspot": "my-hotspot"},
