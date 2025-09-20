@@ -9,13 +9,15 @@ SONAR_TOKEN = os.getenv("SONAR_TOKEN")
 if SONAR_TOKEN:
     sonarqube = SonarQube(host=SONAR_HOST, token=SONAR_TOKEN)
 else:
-    print("SONAR_TOKEN environment variable not set. Please set it to your SonarQube API token.")
+    print(
+        "SONAR_TOKEN environment variable not set. Please set it to your SonarQube API token."
+    )
     exit(1)
 
 # Search for projects
 projects = sonarqube.projects.search_projects(q="my-project")
 print(f"Found {projects['paging']['total']} projects matching 'my-project':")
-for project in projects['components']:
+for project in projects["components"]:
     print(f"  - {project['name']} (key: {project['key']})")
 
 # --- Destructive Operations (commented out by default) ---

@@ -25,7 +25,9 @@ SONAR_TOKEN = os.getenv("SONAR_TOKEN")
 if SONAR_TOKEN:
     sonarqube = SonarQube(host=SONAR_HOST, token=SONAR_TOKEN)
 else:
-    print("SONAR_TOKEN environment variable not set. Please set it to your SonarQube API token.")
+    print(
+        "SONAR_TOKEN environment variable not set. Please set it to your SonarQube API token."
+    )
     exit(1)
 
 
@@ -36,14 +38,13 @@ def get_and_print_measures(component_key, title):
     print(f"--- {title} ---")
     try:
         measures = sonarqube.measures.component(
-            component=component_key,
-            metricKeys=",".join(METRICS_TO_REQUEST)
+            component=component_key, metricKeys=",".join(METRICS_TO_REQUEST)
         )
 
         print(f"Measures for component '{measures['component']['name']}':")
-        for measure in measures['component']['measures']:
-            metric_name = measure['metric']
-            metric_value = measure['value']
+        for measure in measures["component"]["measures"]:
+            metric_name = measure["metric"]
+            metric_value = measure["value"]
             print(f"  - {metric_name}: {metric_value}")
 
     except Exception as e:

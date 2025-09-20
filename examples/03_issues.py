@@ -13,18 +13,17 @@ SONAR_TOKEN = os.getenv("SONAR_TOKEN")
 if SONAR_TOKEN:
     sonarqube = SonarQube(host=SONAR_HOST, token=SONAR_TOKEN)
 else:
-    print("SONAR_TOKEN environment variable not set. Please set it to your SonarQube API token.")
+    print(
+        "SONAR_TOKEN environment variable not set. Please set it to your SonarQube API token."
+    )
     exit(1)
 
 # Search for open issues in the project
 try:
-    issues = sonarqube.issues.search_issues(
-        componentKeys=PROJECT_KEY,
-        statuses='OPEN'
-    )
+    issues = sonarqube.issues.search_issues(componentKeys=PROJECT_KEY, statuses="OPEN")
 
     print(f"Found {issues['paging']['total']} open issues in project '{PROJECT_KEY}':")
-    for issue in issues['issues']:
+    for issue in issues["issues"]:
         print(
             f"  - [{issue['severity']}] {issue['message']} "
             f"(in {issue['component']})"
