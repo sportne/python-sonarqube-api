@@ -282,19 +282,13 @@ This is a list of features that have been implemented in this SonarQube Python A
 - [x] List rule tags (`api/rules/tags`)
 - [x] Update an existing rule (`api/rules/update`)
 
-### Users
-- [x] Search for users (`api/users/search`)
-- [ ] Get user details (`api/users/show`)
-- [ ] Get user by external identity (`api/users/show_by_external_identity`)
-- [x] Create a new user (`api/users/create`)
-- [x] Deactivate a user (`api/users/deactivate`)
-- [x] Update user properties (`api/users/update`)
-- [ ] Update user login (`api/users/update_login`)
-- [x] Change user password (`api/users/change_password`)
-- [x] Get user groups (`api/users/groups`)
-- [x] Get user tokens (`api/user_tokens/search`)
-- [x] Generate a user token (`api/user_tokens/generate`)
-- [x] Revoke a user token (`api/user_tokens/revoke`)
+### Sources
+- [ ] Get source code as line number / text pairs (`api/sources/index`)
+- [ ] Get code snippets involved in an issue or hotspot (`api/sources/issue_snippets`)
+- [ ] Show source code with line oriented info (`api/sources/lines`)
+- [ ] Get source code as raw text (`api/sources/raw`)
+- [ ] Get SCM information of source files (`api/sources/scm`)
+- [ ] Get source code (`api/sources/show`)
 
 ### System
 - [x] Get system health (`api/system/health`)
@@ -303,6 +297,66 @@ This is a list of features that have been implemented in this SonarQube Python A
 - [x] Get system upgrades (`api/system/upgrades`)
 - [x] Get system logs (`api/system/logs`)
 - [x] Get system configuration (`api/system/info`)
+- [ ] Temporarily changes level of logs (`api/system/change_log_level`)
+- [ ] Provide liveness of SonarQube (`api/system/liveness`)
+- [ ] Migrate the database (`api/system/migrate_db`)
+- [ ] Answers "pong" as plain-text (`api/system/ping`)
+- [ ] Restarts server (`api/system/restart`)
+
+### User Tokens
+- [x] Generate a user access token (`api/user_tokens/generate`)
+- [x] Revoke a user access token (`api/user_tokens/revoke`)
+- [x] List the access tokens of a user (`api/user_tokens/search`)
+
+### Users
+- [x] Change user password (`api/users/change_password`)
+- [ ] Get the details of the current authenticated user (`api/users/current`)
+- [ ] Dismiss a notice for the current user (`api/users/dismiss_notice`)
+- [ ] List the external identity providers (`api/users/identity_providers`)
+- [ ] Set AI tool usage (`api/users/set_ai_tool_usage`)
+- [ ] Set homepage of current user (`api/users/set_homepage`)
+
+### Views
+- [ ] Add an existing application to a portfolio (`api/views/add_application`)
+- [ ] Add a branch of an application selected in a portfolio (`api/views/add_application_branch`)
+- [ ] Add an existing portfolio to the structure of another portfolio (`api/views/add_portfolio`)
+- [ ] Add a project to a portfolio (`api/views/add_project`)
+- [ ] Add a branch of a project selected in a portfolio (`api/views/add_project_branch`)
+- [ ] List applications which the user has access to that can be added to a portfolio (`api/views/applications`)
+- [ ] Create a new portfolio (`api/views/create`)
+- [ ] Delete a portfolio definition (`api/views/delete`)
+- [ ] List root portfolios (`api/views/list`)
+- [ ] Move a portfolio (`api/views/move`)
+- [ ] List possible portfolio destinations (`api/views/move_options`)
+- [ ] List portfolios that can be referenced (`api/views/portfolios`)
+- [ ] List projects manually selected in a portfolio (`api/views/projects`)
+- [ ] Return projects with a failed quality gate (`api/views/projects_status`)
+- [ ] Refresh one or all of the portfolios (`api/views/refresh`)
+- [ ] Remove an application from a portfolio (`api/views/remove_application`)
+- [ ] Remove a branch of an application selected in a portfolio (`api/views/remove_application_branch`)
+- [ ] Remove a reference to a portfolio (`api/views/remove_portfolio`)
+- [ ] Remove a project from a portfolio (`api/views/remove_project`)
+- [ ] Remove a branch of a project selected in a portfolio (`api/views/remove_project_branch`)
+- [ ] Search for portfolios (`api/views/search`)
+- [ ] Set the projects selection mode of a portfolio on manual selection (`api/views/set_manual_mode`)
+- [ ] Set the projects selection mode of a portfolio to none (`api/views/set_none_mode`)
+- [ ] Set the projects selection mode of a portfolio on regular expression (`api/views/set_regexp_mode`)
+- [ ] Set the projects selection mode of a portfolio on unassociated projects in hierarchy (`api/views/set_remaining_projects_mode`)
+- [ ] Set the projects selection mode of a portfolio on project tags (`api/views/set_tags_mode`)
+- [ ] Show the details of a portfolio (`api/views/show`)
+- [ ] Update a portfolio (`api/views/update`)
+
+### Webhooks
+- [ ] Create a Webhook (`api/webhooks/create`)
+- [ ] Delete a Webhook (`api/webhooks/delete`)
+- [ ] Get the recent deliveries (`api/webhooks/deliveries`)
+- [ ] Get a webhook delivery by its id (`api/webhooks/delivery`)
+- [ ] Search for webhooks (`api/webhooks/list`)
+- [ ] Update a Webhook (`api/webhooks/update`)
+
+### Web Services
+- [ ] List web services (`api/webservices/list`)
+- [ ] Display web service response example (`api/webservices/response_example`)
 
 ## Development
 
@@ -352,5 +406,4 @@ The SonarQube REST API documentation can be found here: https://next.sonarqube.c
 ## Future Work
 
 - Implement the missing API endpoints.
-- Add documentation for the `users` API category.
 - Add more examples and use cases to the documentation.
