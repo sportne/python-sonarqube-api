@@ -39,3 +39,16 @@ This documentation provides a markdown representation of the SonarQube Web API.
 - [Views](views.md)
 - [Webhooks](webhooks.md)
 - [Web Services](webservices.md)
+
+---
+
+## V2 API Categories
+
+- [Analysis V2](analysis_v2.md)
+- [DevOps Platform Translation V2](dop_translation_v2.md)
+- [Fix Suggestions V2](fix_suggestions_v2.md)
+- [Permissions V2](permissions_v2.md)
+- [Rules V2](rules_v2.md)
+- [SCA V2](sca_v2.md)
+- [System V2](system_v2.md)
+- [Users V2](users_v2.md)
