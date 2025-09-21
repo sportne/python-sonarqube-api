@@ -401,7 +401,9 @@ pytest
 
 ## API Documentation
 
-The SonarQube REST API documentation can be found here: https://next.sonarqube.com/sonarqube/web_api/api/
+The SonarQube REST API documentation can be found here:
+- https://next.sonarqube.com/sonarqube/web_api/api/
+- https://next.sonarqube.com/sonarqube/web_api_v2
 
 ## Future Work
 
