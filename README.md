@@ -358,6 +358,50 @@ This is a list of features that have been implemented in this SonarQube Python A
 - [ ] List web services (`api/webservices/list`)
 - [ ] Display web service response example (`api/webservices/response_example`)
 
+### Users Management V2
+- [ ] Create a user (`api/v2/users-management/users`)
+- [ ] Search users (`api/v2/users-management/users`)
+- [ ] Fetch a single user (`api/v2/users-management/users/{id}`)
+- [ ] Update a user (`api/v2/users-management/users/{id}`)
+- [ ] Deactivate a user (`api/v2/users-management/users/{id}`)
+
+### Fix Suggestions V2
+- [ ] Suggest a fix for an issue (`api/v2/fix-suggestions/ai-suggestions`)
+- [ ] Fetch AI suggestion availability (`api/v2/fix-suggestions/issues/{issueId}`)
+
+### DevOps Platform Translation V2
+- [ ] Create a SonarQube project (`api/v2/dop-translation/bound-projects`)
+- [ ] List DevOps Platform Integration settings (`api/v2/dop-translation/dop-settings`)
+
+### Clean Code Policy V2
+- [ ] Create a custom rule (`api/v2/clean-code-policy/rules`)
+
+### Authorizations V2
+- [ ] Add a group membership (`api/v2/authorizations/group-memberships`)
+- [ ] Search group memberships (`api/v2/authorizations/group-memberships`)
+- [ ] Remove a group membership (`api/v2/authorizations/group-memberships/{id}`)
+- [ ] Create a new group (`api/v2/authorizations/groups`)
+- [ ] Search groups (`api/v2/authorizations/groups`)
+- [ ] Fetch a single group (`api/v2/authorizations/groups/{id}`)
+- [ ] Update a group (`api/v2/authorizations/groups/{id}`)
+- [ ] Delete a group (`api/v2/authorizations/groups/{id}`)
+
+### System V2
+- [ ] Get system health (`api/v2/system/health`)
+- [ ] Get system liveness (`api/v2/system/liveness`)
+- [ ] Get migrations status (`api/v2/system/migrations-status`)
+
+### SCA V2
+- [ ] Get risk reports (`api/v2/sca/risk-reports`)
+- [ ] Get SBOM reports (`api/v2/sca/sbom-reports`)
+
+### Analysis V2
+- [ ] Get active rules (`api/v2/analysis/active_rules`)
+- [ ] Get scanner engine metadata/download (`api/v2/analysis/engine`)
+- [ ] Get all JREs metadata (`api/v2/analysis/jres`)
+- [ ] Get JRE metadata/download (`api/v2/analysis/jres/{id}`)
+- [ ] Get scanner engine version (`api/v2/analysis/version`)
+
 ## Development
 
 ### Project Structure
