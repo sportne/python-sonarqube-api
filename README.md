@@ -309,15 +309,7 @@ This is a list of features that have been implemented in this SonarQube Python A
 - [x] List the access tokens of a user (`api/user_tokens/search`)
 
 ### Users
-- [x] Search for users (`api/users/search`)
-- [ ] Get user details (`api/users/show`)
-- [ ] Get user by external identity (`api/users/show_by_external_identity`)
-- [x] Create a new user (`api/users/create`)
-- [x] Deactivate a user (`api/users/deactivate`)
-- [x] Update user properties (`api/users/update`)
-- [ ] Update user login (`api/users/update_login`)
 - [x] Change user password (`api/users/change_password`)
-- [x] Get user groups (`api/users/groups`)
 - [ ] Get the details of the current authenticated user (`api/users/current`)
 - [ ] Dismiss a notice for the current user (`api/users/dismiss_notice`)
 - [ ] List the external identity providers (`api/users/identity_providers`)
