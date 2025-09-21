@@ -1,5 +1,7 @@
 # python-sonarqube-api
 
+⚠️ **Warning:** This is an experimental project for exploring how far a LLM driven coding agent can go toward implementing a Python library for a documened REST API.
+
 A Python wrapper for the Sonarqube Web API that allows you to easily interact with your SonarQube instance.
 
 This library provides access to almost the full functionality of the SonarQube API, allowing you to automate tasks, extract data, and integrate SonarQube into your existing workflows.
