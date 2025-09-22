@@ -1,5 +1,6 @@
 import requests
 
+from .authentication import SonarQubeAuthentication
 from .applications import SonarQubeApplications
 from .ce import SonarQubeCe
 from .components import SonarQubeComponents
@@ -65,6 +66,7 @@ class SonarQubeClient:
             self.session.auth = (self.user, self.password)
 
         # Attach API endpoints
+        self.authentication = SonarQubeAuthentication(self)
         self.applications = SonarQubeApplications(self)
         self.ce = SonarQubeCe(self)
         self.components = SonarQubeComponents(self)
@@ -130,10 +132,3 @@ class SonarQubeClient:
         Send a DELETE request to the SonarQube API.
         """
         return self.session.delete(f"{self.host}/{endpoint}", **kwargs)
-
-    def is_authenticated(self):
-        """
-        Check if the client is authenticated.
-        """
-        response = self._get("api/authentication/validate")
-        return response.status_code == 200 and response.json().get("valid") is True
