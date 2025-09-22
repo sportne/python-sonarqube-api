@@ -2,75 +2,104 @@
 
 # Authorizations V2
 
+The `SonarQubeAuthorizationsV2` client exposes helpers for managing groups and
+their memberships through the `/api/v2/authorizations` endpoints.
+
 ### `POST /api/v2/authorizations/group-memberships`
+
 Add a user to a group.
 
-**Parameters**
-- `userId` (optional): ID of the user to add to group.
-- `groupId` (optional): ID of the group where a member needs to be added.
+**Request Body**
+
+- `userId` (string, optional): ID of the user to add to the group.
+- `groupId` (string, optional): ID of the group that should receive the
+  member.
 
 ---
 
 ### `GET /api/v2/authorizations/group-memberships`
-Get the list of groups and members matching the query.
 
-**Parameters**
-- `q` (optional): Limit search to names that contain the supplied string.
-- `groupId` (optional): The id of the group to filter for.
-- `userId` (optional): The id of the user to filter for.
-- `pageSize` (optional): The number of results to return.
-- `page` (optional): The page of results to return.
+Retrieve memberships matching the supplied filters.
+
+**Query Parameters**
+
+- `userId` (string, optional): Limit the results to memberships for this user.
+- `groupId` (string, optional): Limit the results to memberships of this group.
+- `pageSize` (integer, optional): Number of results per page. Maximum 500,
+  minimum 0, default 50. Setting `0` returns only pagination metadata.
+- `pageIndex` (integer, optional): 1-based page index. Minimum 1, default 1.
 
 ---
 
-### `DELETE /api/v2/authorizations/group-memberships/{member_id}`
+### `DELETE /api/v2/authorizations/group-memberships/{id}`
+
 Remove a user from a group.
 
-**Parameters**
-- `member_id` (required): The ID of the group membership to delete.
+**Path Parameters**
+
+- `id` (string, required): Identifier of the membership to delete.
 
 ---
 
 ### `POST /api/v2/authorizations/groups`
+
 Create a new group.
 
-**Parameters**
-- `name` (required): Name for the new group.
-- `description` (optional): Description for the new group.
+**Request Body**
+
+- `name` (string, required): Group name. Must be unique. Maximum length 255,
+  minimum 1. The reserved name `anyone` cannot be used.
+- `description` (string, optional): Group description. Maximum length 200.
 
 ---
 
 ### `GET /api/v2/authorizations/groups`
-Get the list of groups.
 
-**Parameters**
-- `q` (optional): Limit search to names that contain the supplied string.
-- `organization` (optional): The key of the organization to filter for.
-- `pageSize` (optional): The number of results to return.
-- `page` (optional): The page of results to return.
+List groups.
+
+**Query Parameters**
+
+- `managed` (boolean, optional): Filter by managed status. Only available on
+  managed instances.
+- `q` (string, optional): Case-insensitive substring filter on the group
+  name.
+- `userId` (string, optional): Only return groups that contain this user. Using
+  `!=` searches for groups without the user (administrator only).
+- `pageSize` (integer, optional): Number of results per page. Maximum 500,
+  minimum 0, default 50. Setting `0` returns only pagination metadata.
+- `pageIndex` (integer, optional): 1-based page index. Minimum 1, default 1.
 
 ---
 
-### `GET /api/v2/authorizations/groups/{group_id}`
+### `GET /api/v2/authorizations/groups/{id}`
+
 Fetch a single group.
 
-**Parameters**
-- `group_id` (required): The id of the group to fetch.
+**Path Parameters**
+
+- `id` (string, required): Identifier of the group to fetch.
 
 ---
 
-### `PATCH /api/v2/authorizations/groups/{group_id}`
-Update a group name or description.
+### `PATCH /api/v2/authorizations/groups/{id}`
 
-**Parameters**
-- `group_id` (required): The id of the group to update.
-- `name` (optional): The new name for the group.
-- `description` (optional): The new description for the group.
+Update a group's metadata.
+
+**Path Parameters**
+
+- `id` (string, required): Identifier of the group to update.
+
+**Request Body**
+
+- `name` (string, optional): New group name. Maximum length 255, minimum 1.
+- `description` (string, optional): New group description. Maximum length 200.
 
 ---
 
-### `DELETE /api/v2/authorizations/groups/{group_id}`
-Deletes a group.
+### `DELETE /api/v2/authorizations/groups/{id}`
 
-**Parameters**
-- `group_id` (required): The ID of the group to delete.
+Delete a group.
+
+**Path Parameters**
+
+- `id` (string, required): Identifier of the group to delete.
