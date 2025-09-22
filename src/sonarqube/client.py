@@ -27,8 +27,20 @@ from .projects import SonarQubeProjects
 from .quality_gates import SonarQubeQualityGates
 from .quality_profiles import SonarQubeQualityProfiles
 from .rules import SonarQubeRules
+from .sources import SonarQubeSources
 from .system import SonarQubeSystem
 from .users import SonarQubeUsers
+from .views import SonarQubeViews
+from .webhooks import SonarQubeWebhooks
+from .web_services import SonarQubeWebServices
+from .users_v2 import SonarQubeUsersV2
+from .fix_suggestions_v2 import SonarQubeFixSuggestionsV2
+from .dop_translation_v2 import SonarQubeDopTranslationV2
+from .clean_code_policy_v2 import SonarQubeCleanCodePolicyV2
+from .authorizations_v2 import SonarQubeAuthorizationsV2
+from .system_v2 import SonarQubeSystemV2
+from .sca_v2 import SonarQubeScaV2
+from .analysis_v2 import SonarQubeAnalysisV2
 
 
 class SonarQubeClient:
@@ -80,8 +92,20 @@ class SonarQubeClient:
         self.quality_gates = SonarQubeQualityGates(self)
         self.quality_profiles = SonarQubeQualityProfiles(self)
         self.rules = SonarQubeRules(self)
+        self.sources = SonarQubeSources(self)
         self.system = SonarQubeSystem(self)
         self.users = SonarQubeUsers(self)
+        self.views = SonarQubeViews(self)
+        self.webhooks = SonarQubeWebhooks(self)
+        self.web_services = SonarQubeWebServices(self)
+        self.users_v2 = SonarQubeUsersV2(self)
+        self.fix_suggestions_v2 = SonarQubeFixSuggestionsV2(self)
+        self.dop_translation_v2 = SonarQubeDopTranslationV2(self)
+        self.clean_code_policy_v2 = SonarQubeCleanCodePolicyV2(self)
+        self.authorizations_v2 = SonarQubeAuthorizationsV2(self)
+        self.system_v2 = SonarQubeSystemV2(self)
+        self.sca_v2 = SonarQubeScaV2(self)
+        self.analysis_v2 = SonarQubeAnalysisV2(self)
 
     def _get(self, endpoint, **kwargs):
         """
@@ -94,6 +118,18 @@ class SonarQubeClient:
         Send a POST request to the SonarQube API.
         """
         return self.session.post(f"{self.host}/{endpoint}", **kwargs)
+
+    def _patch(self, endpoint, **kwargs):
+        """
+        Send a PATCH request to the SonarQube API.
+        """
+        return self.session.patch(f"{self.host}/{endpoint}", **kwargs)
+
+    def _delete(self, endpoint, **kwargs):
+        """
+        Send a DELETE request to the SonarQube API.
+        """
+        return self.session.delete(f"{self.host}/{endpoint}", **kwargs)
 
     def is_authenticated(self):
         """

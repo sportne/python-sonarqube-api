@@ -2,88 +2,58 @@ class SonarQubeUsers:
     def __init__(self, client):
         self.client = client
 
-    def search_users(self, **kwargs):
+    def change_password(self, login, password, previousPassword=None):
         """
-        Search for users.
-        :param kwargs: Additional parameters
-        """
-        return self.client._get("api/users/search", params=kwargs)
-
-    def create_user(self, login, name, **kwargs):
-        """
-        Create a new user.
+        Update a user's password.
         :param login: User login
-        :param name: User name
-        :param kwargs: Additional parameters
+        :param password: New password
+        :param previousPassword: Previous password
         """
-        params = {"login": login, "name": name}
-        params.update(kwargs)
-        return self.client._post("api/users/create", params=params)
-
-    def deactivate_user(self, login):
-        """
-        Deactivate a user.
-        :param login: User login
-        """
-        params = {"login": login}
-        return self.client._post("api/users/deactivate", params=params)
-
-    def update_user(self, login, **kwargs):
-        """
-        Update user properties.
-        :param login: User login
-        :param kwargs: Additional parameters
-        """
-        params = {"login": login}
-        params.update(kwargs)
-        return self.client._post("api/users/update", params=params)
-
-    def change_user_password(self, login, new_password, previous_password=None):
-        """
-        Change user password.
-        :param login: User login
-        :param new_password: New password
-        :param previous_password: Previous password
-        """
-        params = {"login": login, "password": new_password}
-        if previous_password:
-            params["previousPassword"] = previous_password
+        params = {"login": login, "password": password}
+        if previousPassword:
+            params["previousPassword"] = previousPassword
         return self.client._post("api/users/change_password", params=params)
 
-    def get_user_groups(self, login, **kwargs):
+    def get_current_user(self):
         """
-        Get user groups.
-        :param login: User login
-        :param kwargs: Additional parameters
+        Get the details of the current authenticated user.
         """
-        params = {"login": login}
-        params.update(kwargs)
-        return self.client._get("api/users/groups", params=params)
+        return self.client._get("api/users/current")
 
-    def search_user_tokens(self, login):
+    def dismiss_notice(self, notice=None):
         """
-        Get user tokens.
-        :param login: User login
+        Dismiss a notice for the current user.
+        :param notice: Notice key to dismiss
         """
-        params = {"login": login}
-        return self.client._get("api/user_tokens/search", params=params)
+        params = {}
+        if notice:
+            params["notice"] = notice
+        return self.client._post("api/users/dismiss_notice", params=params)
 
-    def generate_user_token(self, login, name=None):
+    def get_identity_providers(self):
         """
-        Generate a user token.
-        :param login: User login
-        :param name: Token name
+        List the external identity providers.
         """
-        params = {"login": login}
-        if name:
-            params["name"] = name
-        return self.client._post("api/user_tokens/generate", params=params)
+        return self.client._get("api/users/identity_providers")
 
-    def revoke_user_token(self, login, name):
+    def set_ai_tool_usage(self, project):
         """
-        Revoke a user token.
-        :param login: User login
-        :param name: Token name
+        Set AI tool usage.
+        :param project: Project key
         """
-        params = {"login": login, "name": name}
-        return self.client._post("api/user_tokens/revoke", params=params)
+        params = {"project": project}
+        return self.client._post("api/users/set_ai_tool_usage", params=params)
+
+    def set_homepage(self, type, branch=None, component=None):
+        """
+        Set homepage of current user.
+        :param type: Type of the requested page
+        :param branch: Branch key
+        :param component: Project key
+        """
+        params = {"type": type}
+        if branch:
+            params["branch"] = branch
+        if component:
+            params["component"] = component
+        return self.client._post("api/users/set_homepage", params=params)
