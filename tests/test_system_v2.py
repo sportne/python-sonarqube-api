@@ -10,14 +10,14 @@ class TestSonarQubeSystemV2(unittest.TestCase):
     def test_get_system_health(self):
         with patch.object(self.sonar, "_get") as mock_get:
             self.sonar.system_v2.get_system_health()
-            mock_get.assert_called_with("/api/v2/system/health", headers={})
+            mock_get.assert_called_with("api/v2/system/health", headers={})
 
     def test_get_system_liveness(self):
         with patch.object(self.sonar, "_get") as mock_get:
             self.sonar.system_v2.get_system_liveness()
-            mock_get.assert_called_with("/api/v2/system/liveness", headers={})
+            mock_get.assert_called_with("api/v2/system/liveness", headers={})
 
     def test_get_migrations_status(self):
         with patch.object(self.sonar, "_get") as mock_get:
             self.sonar.system_v2.get_migrations_status()
-            mock_get.assert_called_with("/api/v2/system/migrations-status")
+            mock_get.assert_called_with("api/v2/system/migrations-status")

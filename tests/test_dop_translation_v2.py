@@ -17,7 +17,7 @@ class TestSonarQubeDopTranslationV2(unittest.TestCase):
                 monorepo=False,
             )
             mock_post.assert_called_with(
-                "/api/v2/dop-translation/bound-projects",
+                "api/v2/dop-translation/bound-projects",
                 json={
                     "projectKey": "my-project-key",
                     "projectName": "my-project-name",
@@ -30,4 +30,4 @@ class TestSonarQubeDopTranslationV2(unittest.TestCase):
     def test_list_dop_settings(self):
         with patch.object(self.sonar, "_get") as mock_get:
             self.sonar.dop_translation_v2.list_dop_settings()
-            mock_get.assert_called_with("/api/v2/dop-translation/dop-settings")
+            mock_get.assert_called_with("api/v2/dop-translation/dop-settings")
