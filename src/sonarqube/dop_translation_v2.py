@@ -28,10 +28,10 @@ class SonarQubeDopTranslationV2:
             "monorepo": monorepo,
         }
         params.update(kwargs)
-        return self.client._post("/api/v2/dop-translation/bound-projects", json=params)
+        return self.client._post("api/v2/dop-translation/bound-projects", json=params)
 
     def list_dop_settings(self):
         """
         List all DevOps Platform Integration settings.
         """
-        return self.client._get("/api/v2/dop-translation/dop-settings")
+        return self.client._get("api/v2/dop-translation/dop-settings")

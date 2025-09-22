@@ -11,7 +11,7 @@ class TestSonarQubeScaV2(unittest.TestCase):
         with patch.object(self.sonar, "_get") as mock_get:
             self.sonar.sca_v2.get_risk_reports(component="my-component")
             mock_get.assert_called_with(
-                "/api/v2/sca/risk-reports", params={"component": "my-component"}
+                "api/v2/sca/risk-reports", params={"component": "my-component"}
             )
 
     def test_get_sbom_reports(self):
@@ -20,6 +20,6 @@ class TestSonarQubeScaV2(unittest.TestCase):
                 component="my-component", type="cyclonedx"
             )
             mock_get.assert_called_with(
-                "/api/v2/sca/sbom-reports",
+                "api/v2/sca/sbom-reports",
                 params={"component": "my-component", "type": "cyclonedx"},
             )

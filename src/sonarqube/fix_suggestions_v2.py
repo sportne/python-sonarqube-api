@@ -12,11 +12,11 @@ class SonarQubeFixSuggestionsV2:
         params = {"projectKey": projectKey, "issueId": issueId}
         if issue:
             params["issue"] = issue
-        return self.client._post("/api/v2/fix-suggestions/ai-suggestions", json=params)
+        return self.client._post("api/v2/fix-suggestions/ai-suggestions", json=params)
 
     def get_suggestion_availability(self, issueId):
         """
         Fetch AI suggestion availability for the given issueId.
         :param issueId: Issue key
         """
-        return self.client._get(f"/api/v2/fix-suggestions/issues/{issueId}")
+        return self.client._get(f"api/v2/fix-suggestions/issues/{issueId}")

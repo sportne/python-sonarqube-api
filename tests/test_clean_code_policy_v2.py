@@ -17,7 +17,7 @@ class TestSonarQubeCleanCodePolicyV2(unittest.TestCase):
                 impacts=[],
             )
             mock_post.assert_called_with(
-                "/api/v2/clean-code-policy/rules",
+                "api/v2/clean-code-policy/rules",
                 json={
                     "key": "my-rule-key",
                     "templateKey": "my-template-key",

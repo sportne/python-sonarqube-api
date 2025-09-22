@@ -14,7 +14,7 @@ class SonarQubeScaV2:
             params["branch"] = branch
         if riskType:
             params["riskType"] = riskType
-        return self.client._get("/api/v2/sca/risk-reports", params=params)
+        return self.client._get("api/v2/sca/risk-reports", params=params)
 
     def get_sbom_reports(self, component, type, branch=None):
         """
@@ -26,4 +26,4 @@ class SonarQubeScaV2:
         params = {"component": component, "type": type}
         if branch:
             params["branch"] = branch
-        return self.client._get("/api/v2/sca/sbom-reports", params=params)
+        return self.client._get("api/v2/sca/sbom-reports", params=params)

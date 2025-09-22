@@ -13,7 +13,7 @@ class TestSonarQubeFixSuggestionsV2(unittest.TestCase):
                 projectKey="my-project", issueId="my-issue-id"
             )
             mock_post.assert_called_with(
-                "/api/v2/fix-suggestions/ai-suggestions",
+                "api/v2/fix-suggestions/ai-suggestions",
                 json={"projectKey": "my-project", "issueId": "my-issue-id"},
             )
 
@@ -22,4 +22,4 @@ class TestSonarQubeFixSuggestionsV2(unittest.TestCase):
             self.sonar.fix_suggestions_v2.get_suggestion_availability(
                 issueId="my-issue-id"
             )
-            mock_get.assert_called_with("/api/v2/fix-suggestions/issues/my-issue-id")
+            mock_get.assert_called_with("api/v2/fix-suggestions/issues/my-issue-id")

@@ -8,13 +8,13 @@ class SonarQubeAnalysisV2:
         :param projectKey: Project Key.
         """
         params = {"projectKey": projectKey}
-        return self.client._get("/api/v2/analysis/active_rules", params=params)
+        return self.client._get("api/v2/analysis/active_rules", params=params)
 
     def get_scanner_engine(self):
         """
         Get the Scanner Engine metadata.
         """
-        return self.client._get("/api/v2/analysis/engine")
+        return self.client._get("api/v2/analysis/engine")
 
     def list_jres(self, os=None, arch=None):
         """
@@ -27,17 +27,17 @@ class SonarQubeAnalysisV2:
             params["os"] = os
         if arch:
             params["arch"] = arch
-        return self.client._get("/api/v2/analysis/jres", params=params)
+        return self.client._get("api/v2/analysis/jres", params=params)
 
     def get_jre(self, jre_id):
         """
         Get the JRE metadata.
         :param jre_id: The ID of the JRE.
         """
-        return self.client._get(f"/api/v2/analysis/jres/{jre_id}")
+        return self.client._get(f"api/v2/analysis/jres/{jre_id}")
 
     def get_scanner_engine_version(self):
         """
         Get the version of the Scanner Engine.
         """
-        return self.client._get("/api/v2/analysis/version")
+        return self.client._get("api/v2/analysis/version")

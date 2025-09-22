@@ -22,4 +22,4 @@ class SonarQubeCleanCodePolicyV2:
             "impacts": impacts,
         }
         params.update(kwargs)
-        return self.client._post("/api/v2/clean-code-policy/rules", json=params)
+        return self.client._post("api/v2/clean-code-policy/rules", json=params)

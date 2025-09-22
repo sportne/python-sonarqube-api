@@ -11,21 +11,21 @@ class SonarQubeUsersV2:
         """
         params = {"login": login, "name": name}
         params.update(kwargs)
-        return self.client._post("/api/v2/users-management/users", json=params)
+        return self.client._post("api/v2/users-management/users", json=params)
 
     def search_users(self, **kwargs):
         """
         Get a list of users.
         :param kwargs: Additional parameters
         """
-        return self.client._get("/api/v2/users-management/users", params=kwargs)
+        return self.client._get("api/v2/users-management/users", params=kwargs)
 
     def get_user(self, user_id):
         """
         Fetch a single user.
         :param user_id: The id of the user to fetch.
         """
-        return self.client._get(f"/api/v2/users-management/users/{user_id}")
+        return self.client._get(f"api/v2/users-management/users/{user_id}")
 
     def update_user(self, user_id, **kwargs):
         """
@@ -34,7 +34,7 @@ class SonarQubeUsersV2:
         :param kwargs: Additional parameters
         """
         return self.client._patch(
-            f"/api/v2/users-management/users/{user_id}", json=kwargs
+            f"api/v2/users-management/users/{user_id}", json=kwargs
         )
 
     def deactivate_user(self, user_id, anonymize=None):
@@ -47,5 +47,5 @@ class SonarQubeUsersV2:
         if anonymize:
             params["anonymize"] = anonymize
         return self.client._delete(
-            f"/api/v2/users-management/users/{user_id}", params=params
+            f"api/v2/users-management/users/{user_id}", params=params
         )

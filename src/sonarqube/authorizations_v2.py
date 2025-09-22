@@ -13,9 +13,7 @@ class SonarQubeAuthorizationsV2:
             params["userId"] = userId
         if groupId:
             params["groupId"] = groupId
-        return self.client._post(
-            "/api/v2/authorizations/group-memberships", json=params
-        )
+        return self.client._post("api/v2/authorizations/group-memberships", json=params)
 
     def search_group_members(self, **kwargs):
         """
@@ -23,7 +21,7 @@ class SonarQubeAuthorizationsV2:
         :param kwargs: Additional parameters
         """
         return self.client._get(
-            "/api/v2/authorizations/group-memberships", params=kwargs
+            "api/v2/authorizations/group-memberships", params=kwargs
         )
 
     def remove_group_member(self, member_id):
@@ -32,7 +30,7 @@ class SonarQubeAuthorizationsV2:
         :param member_id: The ID of the group membership to delete.
         """
         return self.client._delete(
-            f"/api/v2/authorizations/group-memberships/{member_id}"
+            f"api/v2/authorizations/group-memberships/{member_id}"
         )
 
     def create_group(self, name, description=None):
@@ -44,21 +42,21 @@ class SonarQubeAuthorizationsV2:
         params = {"name": name}
         if description:
             params["description"] = description
-        return self.client._post("/api/v2/authorizations/groups", json=params)
+        return self.client._post("api/v2/authorizations/groups", json=params)
 
     def search_groups(self, **kwargs):
         """
         Get the list of groups.
         :param kwargs: Additional parameters
         """
-        return self.client._get("/api/v2/authorizations/groups", params=kwargs)
+        return self.client._get("api/v2/authorizations/groups", params=kwargs)
 
     def get_group(self, group_id):
         """
         Fetch a single group.
         :param group_id: The id of the group to fetch.
         """
-        return self.client._get(f"/api/v2/authorizations/groups/{group_id}")
+        return self.client._get(f"api/v2/authorizations/groups/{group_id}")
 
     def update_group(self, group_id, **kwargs):
         """
@@ -67,7 +65,7 @@ class SonarQubeAuthorizationsV2:
         :param kwargs: Additional parameters
         """
         return self.client._patch(
-            f"/api/v2/authorizations/groups/{group_id}", json=kwargs
+            f"api/v2/authorizations/groups/{group_id}", json=kwargs
         )
 
     def delete_group(self, group_id):
@@ -75,4 +73,4 @@ class SonarQubeAuthorizationsV2:
         Deletes a group.
         :param group_id: The ID of the group to delete.
         """
-        return self.client._delete(f"/api/v2/authorizations/groups/{group_id}")
+        return self.client._delete(f"api/v2/authorizations/groups/{group_id}")
