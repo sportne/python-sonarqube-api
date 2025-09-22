@@ -29,8 +29,8 @@ This documentation provides a markdown representation of the SonarQube Web API.
 - [Project Pull Requests](project_pull_requests.md)
 - [Project Tags](project_tags.md)
 - [Projects](projects.md)
-- [Quality Gates](qualitygates.md)
-- [Quality Profiles](qualityprofiles.md)
+- [Quality Gates](quality_gates.md)
+- [Quality Profiles](quality_profiles.md)
 - [Rules](rules.md)
 - [Sources](sources.md)
 - [System](system.md)
@@ -38,7 +38,7 @@ This documentation provides a markdown representation of the SonarQube Web API.
 - [Users](users.md)
 - [Views](views.md)
 - [Webhooks](webhooks.md)
-- [Web Services](webservices.md)
+- [Web Services](web_services.md)
 
 ---
 
