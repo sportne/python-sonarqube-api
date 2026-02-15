@@ -1,12 +1,21 @@
 import requests
 
-from .authentication import SonarQubeAuthentication
+from .alm_integrations import SonarQubeAlmIntegrations
+from .alm_settings import SonarQubeAlmSettings
+from .analysis_cache import SonarQubeAnalysisCache
+from .analysis_v2 import SonarQubeAnalysisV2
 from .applications import SonarQubeApplications
+from .audit_logs import SonarQubeAuditLogs
+from .authentication import SonarQubeAuthentication
+from .authorizations_v2 import SonarQubeAuthorizationsV2
 from .ce import SonarQubeCe
+from .clean_code_policy_v2 import SonarQubeCleanCodePolicyV2
 from .components import SonarQubeComponents
+from .dop_translation_v2 import SonarQubeDopTranslationV2
 from .duplications import SonarQubeDuplications
 from .editions import SonarQubeEditions
 from .favorites import SonarQubeFavorites
+from .fix_suggestions_v2 import SonarQubeFixSuggestionsV2
 from .hotspots import SonarQubeHotspots
 from .issues import SonarQubeIssues
 from .languages import SonarQubeLanguages
@@ -28,20 +37,18 @@ from .projects import SonarQubeProjects
 from .quality_gates import SonarQubeQualityGates
 from .quality_profiles import SonarQubeQualityProfiles
 from .rules import SonarQubeRules
+from .sca_v2 import SonarQubeScaV2
+from .server import SonarQubeServer
+from .settings import SonarQubeSettings
 from .sources import SonarQubeSources
 from .system import SonarQubeSystem
-from .users import SonarQubeUsers
-from .views import SonarQubeViews
-from .webhooks import SonarQubeWebhooks
-from .web_services import SonarQubeWebServices
-from .users_v2 import SonarQubeUsersV2
-from .fix_suggestions_v2 import SonarQubeFixSuggestionsV2
-from .dop_translation_v2 import SonarQubeDopTranslationV2
-from .clean_code_policy_v2 import SonarQubeCleanCodePolicyV2
-from .authorizations_v2 import SonarQubeAuthorizationsV2
 from .system_v2 import SonarQubeSystemV2
-from .sca_v2 import SonarQubeScaV2
-from .analysis_v2 import SonarQubeAnalysisV2
+from .user_tokens import SonarQubeUserTokens
+from .users import SonarQubeUsers
+from .users_v2 import SonarQubeUsersV2
+from .views import SonarQubeViews
+from .web_services import SonarQubeWebServices
+from .webhooks import SonarQubeWebhooks
 
 
 class SonarQubeClient:
@@ -108,6 +115,13 @@ class SonarQubeClient:
         self.system_v2 = SonarQubeSystemV2(self)
         self.sca_v2 = SonarQubeScaV2(self)
         self.analysis_v2 = SonarQubeAnalysisV2(self)
+        self.alm_integrations = SonarQubeAlmIntegrations(self)
+        self.alm_settings = SonarQubeAlmSettings(self)
+        self.analysis_cache = SonarQubeAnalysisCache(self)
+        self.audit_logs = SonarQubeAuditLogs(self)
+        self.server = SonarQubeServer(self)
+        self.settings = SonarQubeSettings(self)
+        self.user_tokens = SonarQubeUserTokens(self)
 
     def _get(self, endpoint, **kwargs):
         """

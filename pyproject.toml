@@ -1,0 +1,134 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-sonarqube-api"
+version = "0.0.1"
+description = "A Python wrapper for the Sonarqube Web API."
+readme = "README.md"
+requires-python = ">=3.6"
+license = { text = "MIT" }
+authors = [
+  { name = "Example Author", email = "author@example.com" }
+]
+dependencies = [
+  "requests",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "isort",
+  "ruff",
+  "mypy",
+  "pytest",
+  "pytest-cov",
+  "types-requests",
+]
+
+# -------------------------
+# Black (code formatting)
+# -------------------------
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.ruff_cache
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# -------------------------
+# isort (import sorting)
+# -------------------------
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["sonarqube"]
+skip = [".venv", ".mypy_cache", ".ruff_cache", "build", "dist"]
+
+# -------------------------
+# Ruff (linting)
+# -------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+respect-gitignore = true
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+  "E",  # pycodestyle errors
+  "F",  # pyflakes
+  "W",  # pycodestyle warnings
+  "I",  # isort import rules
+  "B",  # bugbear
+  "UP", # pyupgrade
+]
+ignore = [
+  "E501",  # line length handled by black
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# -------------------------
+# mypy (static typing)
+# -------------------------
+[tool.mypy]
+python_version = "3.6"
+packages = ["sonarqube"]
+mypy_path = ["src"]
+ignore_missing_imports = true
+# Codebase is currently untyped, so keep it loose for now
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+show_error_codes = true
+pretty = true
+
+# -------------------------
+# pytest (unit tests)
+# -------------------------
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra --cov=src/sonarqube --cov-report=term-missing --cov-fail-under=80"
+markers = [
+    "integration: mark test as an integration test.",
+]
+
+# -------------------------
+# coverage.py (via pytest-cov)
+# -------------------------
+[tool.coverage.run]
+source = ["src/sonarqube"]
+branch = true
+omit = [
+  "src/sonarqube/__main__.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 80
+
+# -------------------------
+# Setuptools package discovery
+# -------------------------
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["sonarqube*"]

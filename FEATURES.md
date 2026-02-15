@@ -2,6 +2,32 @@
 
 This is a list of features that have been implemented in this SonarQube Python API client.
 
+### ALM Integrations
+- [x] List Azure projects (`api/alm_integrations/list_azure_projects`)
+- [x] List Bitbucket Server projects (`api/alm_integrations/list_bitbucketserver_projects`)
+- [x] Search Azure repos (`api/alm_integrations/search_azure_repos`)
+- [x] Search Bitbucket Cloud repos (`api/alm_integrations/search_bitbucketcloud_repos`)
+- [x] Search Bitbucket Server repos (`api/alm_integrations/search_bitbucketserver_repos`)
+- [x] Search GitLab repos (`api/alm_integrations/search_gitlab_repos`)
+- [x] Import a GitHub project (`api/alm_integrations/import_github_project`)
+- [x] Set a Personal Access Token (`api/alm_integrations/set_pat`)
+
+### ALM Settings
+- [x] Delete DevOps Platform binding (`api/alm_settings/delete_binding`)
+- [x] Get DevOps Platform binding (`api/alm_settings/get_binding`)
+- [x] List DevOps Platform settings (`api/alm_settings/list`)
+- [x] List DevOps Platform setting definitions (`api/alm_settings/list_definitions`)
+- [x] Set Azure binding (`api/alm_settings/set_azure_binding`)
+- [x] Set Bitbucket binding (`api/alm_settings/set_bitbucket_binding`)
+- [x] Set GitHub binding (`api/alm_settings/set_github_binding`)
+- [x] Set GitLab binding (`api/alm_settings/set_gitlab_binding`)
+
+### Analysis Cache
+- [x] Get scanner cached data (`api/analysis_cache/get`)
+
+### Audit Logs
+- [x] Download audit logs (`api/audit_logs/download`)
+
 ### Applications
 - [x] Add a project to an application (`api/applications/add_project`)
 - [x] Create a new application (`api/applications/create`)
@@ -276,6 +302,15 @@ This is a list of features that have been implemented in this SonarQube Python A
 - [x] List rule tags (`api/rules/tags`)
 - [x] Update an existing rule (`api/rules/update`)
 
+### Server
+- [x] Get the version of SonarQube (`api/server/version`)
+
+### Settings
+- [x] List settings definitions (`api/settings/list_definitions`)
+- [x] Remove a setting value (`api/settings/reset`)
+- [x] Update a setting value (`api/settings/set`)
+- [x] List settings values (`api/settings/values`)
+
 ### Sources
 - [x] Get source code as line number / text pairs (`api/sources/index`)
 - [x] Get code snippets involved in an issue or hotspot (`api/sources/issue_snippets`)
@@ -304,11 +339,16 @@ This is a list of features that have been implemented in this SonarQube Python A
 
 ### Users
 - [x] Change user password (`api/users/change_password`)
+- [x] Create a user (`api/users/create`)
 - [x] Get the details of the current authenticated user (`api/users/current`)
+- [x] Deactivate a user (`api/users/deactivate`)
 - [x] Dismiss a notice for the current user (`api/users/dismiss_notice`)
+- [x] List the groups a user belongs to (`api/users/groups`)
 - [x] List the external identity providers (`api/users/identity_providers`)
+- [x] Search for users (`api/users/search`)
 - [x] Set AI tool usage (`api/users/set_ai_tool_usage`)
 - [x] Set homepage of current user (`api/users/set_homepage`)
+- [x] Update a user (`api/users/update`)
 
 ### Views
 - [x] Add an existing application to a portfolio (`api/views/add_application`)
