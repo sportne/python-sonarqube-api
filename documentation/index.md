@@ -4,7 +4,11 @@ This documentation provides a markdown representation of the SonarQube Web API.
 
 ## API Categories
 
+- [ALM Integrations](alm_integrations.md)
+- [ALM Settings](alm_settings.md)
+- [Analysis Cache](analysis_cache.md)
 - [Applications](applications.md)
+- [Audit Logs](audit_logs.md)
 - [Authentication](authentication.md)
 - [Compute Engine (ce)](ce.md)
 - [Components](components.md)
@@ -32,6 +36,8 @@ This documentation provides a markdown representation of the SonarQube Web API.
 - [Quality Gates](quality_gates.md)
 - [Quality Profiles](quality_profiles.md)
 - [Rules](rules.md)
+- [Server](server.md)
+- [Settings](settings.md)
 - [Sources](sources.md)
 - [System](system.md)
 - [User Tokens](user_tokens.md)

@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
+
 from src.sonarqube.authorizations_v2 import SonarQubeAuthorizationsV2
 
 
