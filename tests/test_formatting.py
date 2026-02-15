@@ -1,5 +1,6 @@
 import subprocess
 import unittest
+import sys
 
 
 class TestFormatting(unittest.TestCase):
@@ -9,6 +10,8 @@ class TestFormatting(unittest.TestCase):
         Test that all python files are formatted with black.
         """
         result = subprocess.run(
-            ["black", "--check", "."], capture_output=True, text=True
+            [sys.executable, "-m", "black", "--check", "."],
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(result.returncode, 0, msg=result.stdout)
