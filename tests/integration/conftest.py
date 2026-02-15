@@ -40,3 +40,11 @@ def sonarqube_server():
 @pytest.fixture
 def api_auth():
     return ("admin", "admin")
+
+
+@pytest.fixture
+def sonarqube_client(sonarqube_server, api_auth):
+    from sonarqube import SonarQube
+
+    username, password = api_auth
+    return SonarQube(sonarqube_server, user=username, password=password)
