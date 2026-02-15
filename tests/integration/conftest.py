@@ -34,13 +34,19 @@ def sonarqube_server():
     # Generate coverage report
     print("Generating coverage report...")
     subprocess.run(
-        [".venv/bin/pytest", "--cov=src/sonarqube", "--cov-report=xml", "--ignore=tests/integration"],
-        check=True
+        [
+            ".venv/bin/pytest",
+            "--cov=src/sonarqube",
+            "--cov-report=xml",
+            "--ignore=tests/integration",
+        ],
+        check=True,
     )
 
     # Generate a token for analysis
     print("Generating analysis token...")
     from sonarqube import SonarQube
+
     temp_client = SonarQube(base_url, user="admin", password="admin")
     token_name = f"integration-test-token-{int(time.time())}"
     token_response = temp_client.user_tokens.generate(name=token_name)
@@ -53,17 +59,20 @@ def sonarqube_server():
     project_key = "python-sonarqube-api-test"
     subprocess.run(
         [
-            "docker", "run", "--rm",
+            "docker",
+            "run",
+            "--rm",
             "--net=host",
-            "-v", f"{subprocess.check_output(['pwd']).decode().strip()}:/usr/src",
+            "-v",
+            f"{subprocess.check_output(['pwd']).decode().strip()}:/usr/src",
             "sonarsource/sonar-scanner-cli",
             "-Dsonar.projectKey=" + project_key,
             "-Dsonar.sources=src/sonarqube",
             "-Dsonar.python.coverage.reportPaths=coverage.xml",
             "-Dsonar.host.url=" + base_url,
-            "-Dsonar.token=" + auth_token
+            "-Dsonar.token=" + auth_token,
         ],
-        check=True
+        check=True,
     )
 
     # Wait for background task to finish

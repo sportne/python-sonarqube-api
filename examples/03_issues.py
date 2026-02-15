@@ -20,7 +20,8 @@ else:
 
 # Search for open issues in the project
 try:
-    issues = sonarqube.issues.search_issues(componentKeys=PROJECT_KEY, statuses="OPEN")
+    response = sonarqube.issues.search_issues(componentKeys=PROJECT_KEY, statuses="OPEN")
+    issues = response.json()
 
     print(f"Found {issues['paging']['total']} open issues in project '{PROJECT_KEY}':")
     for issue in issues["issues"]:

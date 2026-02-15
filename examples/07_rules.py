@@ -15,7 +15,8 @@ else:
     exit(1)
 
 # Search for python rules
-rules = sonarqube.rules.search_rules(languages="py")
+response = sonarqube.rules.search_rules(languages="py")
+rules = response.json()
 
 # Print the rules
 for rule in rules["rules"]:

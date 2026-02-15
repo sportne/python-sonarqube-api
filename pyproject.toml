@@ -7,7 +7,7 @@ name = "python-sonarqube-api"
 version = "0.0.1"
 description = "A Python wrapper for the Sonarqube Web API."
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [
   { name = "Example Author", email = "author@example.com" }
@@ -32,7 +32,7 @@ dev = [
 # -------------------------
 [tool.black]
 line-length = 88
-target-version = ["py38"]
+target-version = ["py39"]
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -59,7 +59,7 @@ skip = [".venv", ".mypy_cache", ".ruff_cache", "build", "dist"]
 # -------------------------
 [tool.ruff]
 line-length = 88
-target-version = "py38"
+target-version = "py39"
 respect-gitignore = true
 src = ["src"]
 
@@ -84,7 +84,7 @@ indent-style = "space"
 # mypy (static typing)
 # -------------------------
 [tool.mypy]
-python_version = "3.6"
+python_version = "3.9"
 packages = ["sonarqube"]
 mypy_path = ["src"]
 ignore_missing_imports = true

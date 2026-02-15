@@ -20,7 +20,8 @@ else:
 
 # Get the quality gate status for the project
 try:
-    qg_status = sonarqube.quality_gates.project_status(projectKey=PROJECT_KEY)
+    response = sonarqube.quality_gates.get_project_qualitygate_status(projectKey=PROJECT_KEY)
+    qg_status = response.json()
     project_status = qg_status["projectStatus"]
 
     print(

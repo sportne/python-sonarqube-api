@@ -4,6 +4,7 @@ def test_list_plugins(sonarqube_client):
     plugins = response.json().get("plugins", [])
     assert len(plugins) > 0
 
+
 def test_list_settings(sonarqube_client):
     response = sonarqube_client.settings.values()
     assert response.status_code == 200

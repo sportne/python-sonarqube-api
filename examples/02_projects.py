@@ -15,7 +15,8 @@ else:
     exit(1)
 
 # Search for projects
-projects = sonarqube.projects.search_projects(q="my-project")
+projects_response = sonarqube.projects.search_projects(q="my-project")
+projects = projects_response.json()
 print(f"Found {projects['paging']['total']} projects matching 'my-project':")
 for project in projects["components"]:
     print(f"  - {project['name']} (key: {project['key']})")

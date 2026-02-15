@@ -37,9 +37,10 @@ def get_and_print_measures(component_key, title):
     """
     print(f"--- {title} ---")
     try:
-        measures = sonarqube.measures.component(
+        response = sonarqube.measures.get_measures_component(
             component=component_key, metricKeys=",".join(METRICS_TO_REQUEST)
         )
+        measures = response.json()
 
         print(f"Measures for component '{measures['component']['name']}':")
         for measure in measures["component"]["measures"]:

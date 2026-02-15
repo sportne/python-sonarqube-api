@@ -16,7 +16,8 @@ else:
 
 # Search for active users
 try:
-    users = sonarqube.users.search_users(q="")  # Empty query to get all users
+    response = sonarqube.users.search_users(q="")  # Empty query to get all users
+    users = response.json()
 
     print(f"Found {len(users['users'])} active users:")
     for user in users["users"]:

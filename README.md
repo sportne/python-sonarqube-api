@@ -84,11 +84,13 @@ To run tests with coverage reporting (minimum 80% threshold):
 make coverage
 ```
 
-To run integration tests (requires a running SonarQube instance):
+To run integration tests (requires Docker and a running SonarQube instance):
 
 ```bash
 make test-integration
 ```
+
+> **Note:** The integration test suite automatically handles SonarQube setup, project analysis, and code coverage reporting using Docker.
 
 ## API Documentation
 

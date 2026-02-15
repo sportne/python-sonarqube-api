@@ -4,13 +4,16 @@ def test_permissions_templates_search(sonarqube_client):
     permissions = response.json().get("permissions", [])
     assert len(permissions) > 0
 
+
 def test_favorites_lifecycle(sonarqube_client):
     project_key = "test-project-favorites"
     project_name = "Test Project Favorites"
 
     # Ensure project exists
     try:
-        sonarqube_client.projects.create_project(project_key=project_key, name=project_name)
+        sonarqube_client.projects.create_project(
+            project_key=project_key, name=project_name
+        )
     except Exception:
         pass
 
