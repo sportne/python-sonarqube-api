@@ -25,13 +25,23 @@ def test_show_component(sonarqube_client, project_with_data):
     assert response.json()["component"]["key"] == project_with_data
 
 def test_component_measures(sonarqube_client, project_with_data):
-    # Get ncloc and complexity
+    # Use the analyzed project instead of a fresh one for coverage data
+    project_key = "python-sonarqube-api-test"
+    
+    # Get ncloc, complexity and coverage metrics
     response = sonarqube_client.measures.get_measures_component(
-        component=project_with_data,
-        metricKeys="ncloc,complexity"
+        component=project_key,
+        metricKeys="ncloc,complexity,coverage,lines_to_cover,uncovered_lines"
     )
     assert response.status_code == 200
-    assert response.json()["component"]["key"] == project_with_data
+    component = response.json().get("component")
+    assert component is not None
+    assert component["key"] == project_key
+    
+    measures = {m["metric"]: m["value"] for m in component.get("measures", [])}
+    assert "ncloc" in measures
+    assert "coverage" in measures
+    print(f"Coverage for {project_key}: {measures['coverage']}%")
 
 def test_notifications_list(sonarqube_client):
     response = sonarqube_client.notifications.list_notifications()
