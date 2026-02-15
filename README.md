@@ -15,11 +15,15 @@ A comprehensive checklist of all implemented features can be found in [FEATURES.
 ### Project Structure
 ```
 .
+├── .github
+│   └── workflows
+│       ├── ci.yaml
+│       └── release.yaml
 ├── .gitignore
 ├── LICENSE
+├── Makefile
+├── pyproject.toml
 ├── README.md
-├── requirements.txt
-├── setup.py
 ├── src
 │   ├── __init__.py
 │   └── sonarqube
@@ -28,27 +32,62 @@ A comprehensive checklist of all implemented features can be found in [FEATURES.
 │       └── ...
 ├── tests
 │   ├── __init__.py
-│   ├── test_applications.py
-│   └── ...
+│   ├── ...
+│   └── integration
+│       ├── ...
 └── documentation
     ├── index.md
     └── ...
 ```
 
-### Formatting
+### Dev Workflow
 
-To format the code, run black:
+The project uses a `Makefile` to simplify common development tasks.
+
+#### Setup
+
+To create a virtual environment and install development dependencies:
 
 ```bash
-black src tests
+make setup-venv
+make install-dev
 ```
 
-### Testing
+#### Formatting
 
-To run the tests, use pytest:
+To auto-format the code with `black` and `isort`:
 
 ```bash
-pytest
+make format
+```
+
+#### Linting
+
+To run `ruff` and `mypy` (static analysis):
+
+```bash
+make lint
+make typecheck
+```
+
+#### Testing
+
+To run the full unit test suite:
+
+```bash
+make test
+```
+
+To run tests with coverage reporting (minimum 80% threshold):
+
+```bash
+make coverage
+```
+
+To run integration tests (requires a running SonarQube instance):
+
+```bash
+make test-integration
 ```
 
 ## API Documentation
