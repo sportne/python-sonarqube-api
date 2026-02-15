@@ -15,7 +15,7 @@ else:
     exit(1)
 
 # Check if the client is authenticated
-if sonarqube.is_authenticated():
+if sonarqube.authentication.is_authenticated():
     print("Successfully authenticated with SonarQube.")
 else:
     print("Failed to authenticate with SonarQube. Check your host and token.")

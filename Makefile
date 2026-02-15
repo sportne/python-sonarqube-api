@@ -64,7 +64,7 @@ test:
 	$(PYTHON) -m pytest --ignore=tests/integration
 
 test-integration:
-	$(PYTHON) -m pytest tests/integration
+	$(PYTHON) -m pytest tests/integration --run-integration --no-cov
 
 coverage:
 	$(PYTHON) -m pytest --ignore=tests/integration --cov=$(PACKAGE) --cov-report=term-missing --cov-fail-under=80

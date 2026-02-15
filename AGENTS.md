@@ -26,7 +26,7 @@
 1. Install development dependencies: `make setup-venv` and `make install-dev`.
 2. Run the unit test suite: `make test`.
 3. Run with coverage verification: `make coverage` (strives for 80%+ branch coverage).
-4. Run integration tests: `make test-integration`.
-5. If tests touch HTTP behavior that is difficult to mock, follow the existing pattern of patching the `requests.Session` methods attached to `SonarQube` instances.
+4. Run integration tests: `make test-integration`. This suite uses Docker to spin up SonarQube, perform project analysis, and verify API interactions against a live instance with real data and coverage.
+5. If tests touch HTTP behavior that is difficult to mock, follow the existing pattern of patching the `requests.Session` methods attached to `SonarQube` instances or add an integration test to `tests/integration/`.
 
 Adhering to the above keeps the client consistent, well-tested, and ready for publication.

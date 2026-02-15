@@ -23,7 +23,8 @@ if not SONAR_PROJECT_KEY:
     exit(1)
 
 # Search for hotspots in the specified project
-hotspots = sonarqube.hotspots.search_hotspots(projectKey=SONAR_PROJECT_KEY)
+response = sonarqube.hotspots.search_hotspots(projectKey=SONAR_PROJECT_KEY)
+hotspots = response.json()
 
 # Print the hotspots
 for hotspot in hotspots["hotspots"]:

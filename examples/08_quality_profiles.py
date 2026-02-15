@@ -15,7 +15,8 @@ else:
     exit(1)
 
 # Search for quality profiles
-profiles = sonarqube.qualityprofiles.search_quality_profiles()
+response = sonarqube.quality_profiles.search_quality_profiles()
+profiles = response.json()
 
 # Print the profiles
 for profile in profiles["profiles"]:
