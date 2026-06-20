@@ -7,6 +7,8 @@
 
 Add a permission to a group. This service defaults to global permissions, but can be limited to project permissions by providing project id or project key. The group name must be provided. Requires one of the following permissions: 'Administer System' or 'Administer' rights on the specified project.
 
+Python wrapper: `permissions.add_group_permission(...)`
+
 **Parameters**
 - `groupName` (required): Group name.
 - `permission` (required): Permission.
@@ -41,6 +43,8 @@ Add a project creator to a permission template. Requires 'Administer System' per
 *since 5.2*
 
 Add permission to a user. This service defaults to global permissions, but can be limited to project permissions by providing project id or project key. Requires one of the following permissions: 'Administer System' or 'Administer' rights on the specified project.
+
+Python wrapper: `permissions.add_user_permission(...)`
 
 **Parameters**
 - `login` (required): User login.
@@ -123,6 +127,8 @@ Lists the groups with their permissions.
 
 Remove a permission from a group.
 
+Python wrapper: `permissions.remove_group_permission(...)`
+
 **Parameters**
 - `groupName` (required): Group name.
 - `permission` (required): Permission.
@@ -157,6 +163,8 @@ Remove a project creator from a permission template.
 *since 5.2*
 
 Remove permission from a user.
+
+Python wrapper: `permissions.remove_user_permission(...)`
 
 **Parameters**
 - `login` (required): User login.

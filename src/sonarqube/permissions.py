@@ -2,6 +2,23 @@ class SonarQubePermissions:
     def __init__(self, client):
         self.client = client
 
+    def add_group_permission(
+        self, group_name, permission, project_id=None, project_key=None
+    ):
+        """
+        Add a permission to a group.
+        :param group_name: Group name
+        :param permission: Permission
+        :param project_id: Project ID
+        :param project_key: Project key
+        """
+        params = {"groupName": group_name, "permission": permission}
+        if project_id is not None and project_id != "":
+            params["projectId"] = project_id
+        if project_key is not None and project_key != "":
+            params["projectKey"] = project_key
+        return self.client._post("api/permissions/add_group", params=params)
+
     def add_group_to_permission_template(self, template_name, group_name, permission):
         """
         Add a group to a permission template.
@@ -26,6 +43,21 @@ class SonarQubePermissions:
         return self.client._post(
             "api/permissions/add_project_creator_to_template", params=params
         )
+
+    def add_user_permission(self, login, permission, project_id=None, project_key=None):
+        """
+        Add permission to a user.
+        :param login: User login
+        :param permission: Permission
+        :param project_id: Project ID
+        :param project_key: Project key
+        """
+        params = {"login": login, "permission": permission}
+        if project_id is not None and project_id != "":
+            params["projectId"] = project_id
+        if project_key is not None and project_key != "":
+            params["projectKey"] = project_key
+        return self.client._post("api/permissions/add_user", params=params)
 
     def add_user_to_permission_template(self, template_name, login, permission):
         """
@@ -85,6 +117,23 @@ class SonarQubePermissions:
         """
         return self.client._get("api/permissions/groups", params=kwargs)
 
+    def remove_group_permission(
+        self, group_name, permission, project_id=None, project_key=None
+    ):
+        """
+        Remove a permission from a group.
+        :param group_name: Group name
+        :param permission: Permission
+        :param project_id: Project ID
+        :param project_key: Project key
+        """
+        params = {"groupName": group_name, "permission": permission}
+        if project_id is not None and project_id != "":
+            params["projectId"] = project_id
+        if project_key is not None and project_key != "":
+            params["projectKey"] = project_key
+        return self.client._post("api/permissions/remove_group", params=params)
+
     def remove_group_from_permission_template(
         self, template_name, group_name, permission
     ):
@@ -115,6 +164,23 @@ class SonarQubePermissions:
         return self.client._post(
             "api/permissions/remove_project_creator_from_template", params=params
         )
+
+    def remove_user_permission(
+        self, login, permission, project_id=None, project_key=None
+    ):
+        """
+        Remove permission from a user.
+        :param login: User login
+        :param permission: Permission
+        :param project_id: Project ID
+        :param project_key: Project key
+        """
+        params = {"login": login, "permission": permission}
+        if project_id is not None and project_id != "":
+            params["projectId"] = project_id
+        if project_key is not None and project_key != "":
+            params["projectKey"] = project_key
+        return self.client._post("api/permissions/remove_user", params=params)
 
     def remove_user_from_permission_template(self, template_name, login, permission):
         """

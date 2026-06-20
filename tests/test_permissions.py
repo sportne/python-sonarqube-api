@@ -9,6 +9,34 @@ class TestSonarQubePermissions(unittest.TestCase):
     def setUp(self):
         self.sonar = SonarQube(host="http://localhost:9000", token="test_token")
 
+    def test_add_group_permission(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.add_group_permission(
+                group_name="my-group", permission="scan"
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/add_group",
+                params={"groupName": "my-group", "permission": "scan"},
+            )
+
+    def test_add_group_permission_to_project(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.add_group_permission(
+                group_name="my-group",
+                permission="scan",
+                project_id="my-project-id",
+                project_key="my-project-key",
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/add_group",
+                params={
+                    "groupName": "my-group",
+                    "permission": "scan",
+                    "projectId": "my-project-id",
+                    "projectKey": "my-project-key",
+                },
+            )
+
     def test_add_group_to_permission_template(self):
         with patch.object(self.sonar.session, "post") as mock_post:
             self.sonar.permissions.add_group_to_permission_template(
@@ -31,6 +59,34 @@ class TestSonarQubePermissions(unittest.TestCase):
             mock_post.assert_called_with(
                 "http://localhost:9000/api/permissions/add_project_creator_to_template",
                 params={"templateName": "my-template", "permission": "scan"},
+            )
+
+    def test_add_user_permission(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.add_user_permission(
+                login="my-user", permission="scan"
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/add_user",
+                params={"login": "my-user", "permission": "scan"},
+            )
+
+    def test_add_user_permission_to_project(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.add_user_permission(
+                login="my-user",
+                permission="scan",
+                project_id="my-project-id",
+                project_key="my-project-key",
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/add_user",
+                params={
+                    "login": "my-user",
+                    "permission": "scan",
+                    "projectId": "my-project-id",
+                    "projectKey": "my-project-key",
+                },
             )
 
     def test_add_user_to_permission_template(self):
@@ -97,6 +153,34 @@ class TestSonarQubePermissions(unittest.TestCase):
                 "http://localhost:9000/api/permissions/groups", params={"q": "my-group"}
             )
 
+    def test_remove_group_permission(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.remove_group_permission(
+                group_name="my-group", permission="scan"
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/remove_group",
+                params={"groupName": "my-group", "permission": "scan"},
+            )
+
+    def test_remove_group_permission_from_project(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.remove_group_permission(
+                group_name="my-group",
+                permission="scan",
+                project_id="my-project-id",
+                project_key="my-project-key",
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/remove_group",
+                params={
+                    "groupName": "my-group",
+                    "permission": "scan",
+                    "projectId": "my-project-id",
+                    "projectKey": "my-project-key",
+                },
+            )
+
     def test_remove_group_from_permission_template(self):
         with patch.object(self.sonar.session, "post") as mock_post:
             self.sonar.permissions.remove_group_from_permission_template(
@@ -119,6 +203,34 @@ class TestSonarQubePermissions(unittest.TestCase):
             mock_post.assert_called_with(
                 "http://localhost:9000/api/permissions/remove_project_creator_from_template",
                 params={"templateName": "my-template", "permission": "scan"},
+            )
+
+    def test_remove_user_permission(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.remove_user_permission(
+                login="my-user", permission="scan"
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/remove_user",
+                params={"login": "my-user", "permission": "scan"},
+            )
+
+    def test_remove_user_permission_from_project(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.permissions.remove_user_permission(
+                login="my-user",
+                permission="scan",
+                project_id="my-project-id",
+                project_key="my-project-key",
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/permissions/remove_user",
+                params={
+                    "login": "my-user",
+                    "permission": "scan",
+                    "projectId": "my-project-id",
+                    "projectKey": "my-project-key",
+                },
             )
 
     def test_remove_user_from_permission_template(self):
