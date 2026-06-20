@@ -44,7 +44,7 @@ class SonarQubeUsersV2:
         :param anonymize: Anonymize user in addition to deactivating it.
         """
         params = {}
-        if anonymize:
+        if anonymize is not None and anonymize != "":
             params["anonymize"] = anonymize
         return self.client._delete(
             f"api/v2/users-management/users/{user_id}", params=params

@@ -19,6 +19,16 @@ class TestSonarQubeQualityProfiles(unittest.TestCase):
                 params={"key": "my-profile", "rule": "my-rule"},
             )
 
+    def test_activate_rule_in_quality_profile_includes_false_reset(self):
+        with patch.object(self.sonar.session, "post") as mock_post:
+            self.sonar.quality_profiles.activate_rule_in_quality_profile(
+                key="my-profile", rule="my-rule", reset=False
+            )
+            mock_post.assert_called_with(
+                "http://localhost:9000/api/qualityprofiles/activate_rule",
+                params={"key": "my-profile", "rule": "my-rule", "reset": False},
+            )
+
     def test_activate_rules_in_quality_profile(self):
         with patch.object(self.sonar.session, "post") as mock_post:
             self.sonar.quality_profiles.activate_rules_in_quality_profile(

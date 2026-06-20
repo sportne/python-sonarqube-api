@@ -60,9 +60,9 @@ class SonarQubeHotspots:
         :param ps: Page size
         """
         params = {"projectKey": projectKey}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         return self.client._get("api/hotspots/list", params=params)
 

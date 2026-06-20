@@ -9,9 +9,9 @@ class SonarQubeMetrics:
         :param ps: Page size
         """
         params = {}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         return self.client._get("api/metrics/search", params=params)
 

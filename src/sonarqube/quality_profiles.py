@@ -14,7 +14,7 @@ class SonarQubeQualityProfiles:
         :param params: Parameters
         """
         request_params = {"key": key, "rule": rule}
-        if reset:
+        if reset is not None and reset != "":
             request_params["reset"] = reset
         if severity:
             request_params["severity"] = severity

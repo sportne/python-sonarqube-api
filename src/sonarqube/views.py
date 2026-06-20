@@ -130,9 +130,9 @@ class SonarQubeViews:
         :param selected: Depending on the value, show only selected items, deselected items, or all items.
         """
         params = {"key": key}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if query:
             params["query"] = query
@@ -151,9 +151,9 @@ class SonarQubeViews:
         :param status: Quality gate status to filter projects by.
         """
         params = {"portfolio": portfolio}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if status:
             params["status"] = status
@@ -228,11 +228,11 @@ class SonarQubeViews:
         :param qualifiers: To return only portfolios with specified qualifiers.
         """
         params = {}
-        if onlyFavorites:
+        if onlyFavorites is not None and onlyFavorites != "":
             params["onlyFavorites"] = onlyFavorites
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if q:
             params["q"] = q

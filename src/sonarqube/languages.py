@@ -11,6 +11,6 @@ class SonarQubeLanguages:
         params = {}
         if q:
             params["q"] = q
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         return self.client._get("api/languages/list", params=params)

@@ -26,6 +26,16 @@ class TestSources(unittest.TestCase):
             params={"resource": "my-resource"},
         )
 
+    def test_get_sources_index_includes_zero_lines(self):
+        self.client.sources.get_sources_index(
+            resource="my-resource", from_line=0, to_line=0
+        )
+
+        self.mock_session.get.assert_called_once_with(
+            "http://localhost:9000/api/sources/index",
+            params={"resource": "my-resource", "from": 0, "to": 0},
+        )
+
     def test_get_issue_snippets(self):
         self.client.sources.get_issue_snippets(issueKey="my-issue-key")
 
@@ -56,6 +66,14 @@ class TestSources(unittest.TestCase):
         self.mock_session.get.assert_called_once_with(
             "http://localhost:9000/api/sources/scm",
             params={"key": "my-key"},
+        )
+
+    def test_get_sources_scm_includes_false_commits_by_line(self):
+        self.client.sources.get_sources_scm(key="my-key", commits_by_line=False)
+
+        self.mock_session.get.assert_called_once_with(
+            "http://localhost:9000/api/sources/scm",
+            params={"key": "my-key", "commits_by_line": False},
         )
 
     def test_get_sources_show(self):

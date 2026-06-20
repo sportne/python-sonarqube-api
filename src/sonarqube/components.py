@@ -27,9 +27,9 @@ class SonarQubeComponents:
         params = {"qualifiers": qualifiers}
         if q:
             params["q"] = q
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         return self.client._get("api/components/search", params=params)
 
@@ -43,9 +43,9 @@ class SonarQubeComponents:
         params = {}
         if q:
             params["q"] = q
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         return self.client._get("api/components/search_projects", params=params)
 

@@ -91,9 +91,9 @@ class SonarQubeApplications:
         params = {"application": application}
         if q:
             params["q"] = q
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         return self.client._get("api/applications/search_projects", params=params)
 

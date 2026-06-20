@@ -8,7 +8,7 @@ class SonarQubeWebServices:
         :param include_internals: Include web services that are implemented for internal use only.
         """
         params = {}
-        if include_internals:
+        if include_internals is not None and include_internals != "":
             params["include_internals"] = include_internals
         return self.client._get("api/webservices/list", params=params)
 

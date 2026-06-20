@@ -211,6 +211,14 @@ class TestSonarQubeViews(unittest.TestCase):
                 params={"q": "my-portfolio"},
             )
 
+    def test_search_portfolios_includes_false_and_zero_options(self):
+        with patch.object(self.sonar.session, "get") as mock_get:
+            self.sonar.views.search_portfolios(onlyFavorites=False, p=0, ps=0)
+            mock_get.assert_called_with(
+                "http://localhost:9000/api/views/search",
+                params={"onlyFavorites": False, "p": 0, "ps": 0},
+            )
+
     def test_set_manual_mode(self):
         with patch.object(self.sonar.session, "post") as mock_post:
             self.sonar.views.set_manual_mode(portfolio="my-portfolio")

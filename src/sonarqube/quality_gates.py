@@ -213,9 +213,9 @@ class SonarQubeQualityGates:
         :param organization: Organization key
         """
         params = {"gateId": gateId}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if q:
             params["q"] = q
@@ -237,9 +237,9 @@ class SonarQubeQualityGates:
         :param organization: Organization key
         """
         params = {"gateId": gateId}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if q:
             params["q"] = q
@@ -259,9 +259,9 @@ class SonarQubeQualityGates:
         :param organization: Organization key
         """
         params = {"gateId": gateId}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if q:
             params["q"] = q

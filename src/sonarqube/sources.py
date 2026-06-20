@@ -11,9 +11,9 @@ class SonarQubeSources:
         :return:
         """
         params = {"resource": resource}
-        if from_line:
+        if from_line is not None and from_line != "":
             params["from"] = from_line
-        if to_line:
+        if to_line is not None and to_line != "":
             params["to"] = to_line
         return self.client._get("api/sources/index", params=params)
 
@@ -48,9 +48,9 @@ class SonarQubeSources:
         params = {}
         if key:
             params["key"] = key
-        if from_line:
+        if from_line is not None and from_line != "":
             params["from"] = from_line
-        if to_line:
+        if to_line is not None and to_line != "":
             params["to"] = to_line
         if pullRequest:
             params["pullRequest"] = pullRequest
@@ -85,11 +85,11 @@ class SonarQubeSources:
         :return:
         """
         params = {"key": key}
-        if from_line:
+        if from_line is not None and from_line != "":
             params["from"] = from_line
-        if to_line:
+        if to_line is not None and to_line != "":
             params["to"] = to_line
-        if commits_by_line:
+        if commits_by_line is not None and commits_by_line != "":
             params["commits_by_line"] = commits_by_line
         return self.client._get("api/sources/scm", params=params)
 
@@ -102,8 +102,8 @@ class SonarQubeSources:
         :return:
         """
         params = {"key": key}
-        if from_line:
+        if from_line is not None and from_line != "":
             params["from"] = from_line
-        if to_line:
+        if to_line is not None and to_line != "":
             params["to"] = to_line
         return self.client._get("api/sources/show", params=params)

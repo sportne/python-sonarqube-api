@@ -42,3 +42,11 @@ class TestSonarQubeUsersV2(unittest.TestCase):
             mock_delete.assert_called_with(
                 "api/v2/users-management/users/my-user-id", params={}
             )
+
+    def test_deactivate_user_includes_false_anonymize(self):
+        with patch.object(self.sonar, "_delete") as mock_delete:
+            self.sonar.users_v2.deactivate_user(user_id="my-user-id", anonymize=False)
+            mock_delete.assert_called_with(
+                "api/v2/users-management/users/my-user-id",
+                params={"anonymize": False},
+            )

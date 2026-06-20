@@ -33,9 +33,9 @@ class SonarQubeWebhooks:
         :param webhook: Key of the webhook that triggered those deliveries.
         """
         params = {}
-        if p:
+        if p is not None and p != "":
             params["p"] = p
-        if ps:
+        if ps is not None and ps != "":
             params["ps"] = ps
         if webhook:
             params["webhook"] = webhook
