@@ -92,6 +92,19 @@ make test-integration
 
 > **Note:** The integration test suite automatically handles SonarQube setup, project analysis, and code coverage reporting using Docker.
 
+#### API Coverage Audit
+
+To compare local wrappers with a SonarQube server's Web API metadata:
+
+```bash
+.venv/bin/python scripts/audit_api_coverage.py --host http://localhost:9000
+```
+
+The audit reads `api/webservices/list?include_internals=true` and classifies
+upstream actions as public, internal, deprecated, or already implemented
+locally. Add `--fail-on-public-missing` when you want the command to exit
+non-zero for missing public, non-deprecated endpoints.
+
 ## API Documentation
 
 The SonarQube REST API documentation can be found here:
