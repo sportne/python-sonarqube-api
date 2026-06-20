@@ -2,6 +2,17 @@
 
 This is a list of features that have been implemented in this SonarQube Python API client.
 
+## Coverage Policy
+
+This checklist tracks supported SonarQube Web API endpoints. New wrappers should
+not be added for deprecated legacy endpoints when SonarQube provides a
+maintained `/api/v2` replacement that this client already wraps. Existing legacy
+wrappers may remain listed for backward compatibility. For example, deprecated
+`api/user_groups/*` endpoints are intentionally covered through the
+`api/v2/authorizations/*` wrappers instead of new legacy wrappers. Internal
+endpoints may remain listed only when the client already provides a wrapper for
+that endpoint.
+
 ### ALM Integrations
 - [x] List Azure projects (`api/alm_integrations/list_azure_projects`)
 - [x] List Bitbucket Server projects (`api/alm_integrations/list_bitbucketserver_projects`)
