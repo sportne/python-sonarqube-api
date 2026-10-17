@@ -3,7 +3,7 @@
 ## Overview
 - This package provides a thin, well-documented wrapper around the SonarQube Web API.
 - Source code lives under `src/sonarqube/`; tests under `tests/`; end-user docs are in `documentation/` and should be kept in sync with the Python surface area.
-- For official endpoint details and payload descriptions, refer to the SonarQube Web API reference at <https://next.sonarqube.com/sonarqube/web_api/api/> (linked from the repository `README.md`).
+- For official endpoint details and payload descriptions, use the target server's Web API / Web API v2 help pages. The current entry point is <https://docs.sonarsource.com/sonarqube-server/extension-guide/web-api> (linked from the repository `README.md`).
 
 ## Coding Principles
 - Each SonarQube resource has its own class (e.g., `SonarQubeIssues`) that accepts the shared client in its constructor and invokes the client's `_get`/`_post` helpers. Follow this pattern for any new resource modules or methods.

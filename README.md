@@ -123,8 +123,10 @@ integration suite remains available through `make test-integration`.
 ## API Documentation
 
 The SonarQube REST API documentation can be found here:
-- https://next.sonarqube.com/sonarqube/web_api/api/
-- https://next.sonarqube.com/sonarqube/web_api_v2
+- [Official Web API guide](https://docs.sonarsource.com/sonarqube-server/extension-guide/web-api)
+
+Open **Web API** or **Web API v2** from your target server's help menu for its
+version- and edition-specific endpoint reference.
 
 ## Future Work
 
