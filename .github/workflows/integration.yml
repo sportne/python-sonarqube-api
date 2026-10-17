@@ -35,7 +35,9 @@ jobs:
       - name: Exercise authentication against the server
         run: python -m pytest tests/integration/test_smoke.py --run-integration --no-cov
       - name: Record endpoint coverage for review
-        run: python scripts/audit_api_coverage.py --host http://localhost:9000 > api-coverage.md
+        run: |
+          curl -fsS -u admin:admin http://localhost:9000/api/webservices/list > webservices.json
+          python scripts/audit_api_coverage.py --metadata-file webservices.json > api-coverage.md
       - uses: actions/upload-artifact@v4
         with:
           name: api-coverage
