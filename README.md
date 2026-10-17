@@ -115,8 +115,11 @@ for an offline V2-only audit. The audit checks paths and HTTP methods; request
 parameters, response contracts, and edition-specific behavior still require
 integration checks. A passing unit suite is not a full API compatibility claim.
 
-The `Server compatibility` workflow runs authentication smoke checks against
-the pinned Community image and retains an endpoint coverage report. It does not
+The `Server compatibility` workflow runs authentication and DevOps settings
+lifecycle smoke checks against the pinned Community image, retains an endpoint
+coverage report, and fails on missing public, non-deprecated endpoints in its
+Web API metadata. Settings management is documented in
+[`documentation/alm_settings.md`](documentation/alm_settings.md). This does not
 claim verification of licensed SonarQube Server features. The full scanner-backed
 integration suite remains available through `make test-integration`.
 

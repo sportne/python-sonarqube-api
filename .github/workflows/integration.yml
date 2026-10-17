@@ -36,9 +36,10 @@ jobs:
         run: python -m pytest tests/integration/test_smoke.py --run-integration --no-cov
       - name: Record endpoint coverage for review
         run: |
-          curl -fsS -u admin:admin http://localhost:9000/api/webservices/list > webservices.json
-          python scripts/audit_api_coverage.py --metadata-file webservices.json > api-coverage.md
+          curl -fsS -u admin:admin 'http://localhost:9000/api/webservices/list?include_internals=true' > webservices.json
+          python scripts/audit_api_coverage.py --metadata-file webservices.json --fail-on-public-missing > api-coverage.md
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: api-coverage
           path: api-coverage.md
