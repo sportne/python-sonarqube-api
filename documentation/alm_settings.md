@@ -37,6 +37,8 @@ Endpoint availability and behavior depend on the target version and edition.
 - Update methods keep existing tokens, private keys, and client secrets when
   their optional arguments are `None` or empty strings. These arguments are omitted
   from the request. Non-secret fields listed as required must still be supplied.
+  Changing an Azure, Bitbucket Server, or GitLab URL requires resupplying its
+  `personalAccessToken`; keeping the URL unchanged allows credential reuse.
 - GitHub's `webhookSecret` is an exception on update: `None` preserves it,
   a nonempty string replaces it, and `""` clears it. Changing a GitHub setting's
   URL also requires supplying its `privateKey`.

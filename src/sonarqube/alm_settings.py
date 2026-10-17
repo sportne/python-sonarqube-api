@@ -103,7 +103,7 @@ class SonarQubeAlmSettings:
         Update an Azure DevOps instance setting.
         Requires 'Administer System' permission.
         :param key: Existing DevOps Platform setting key
-        :param url: Absolute HTTP(S) Azure API URL
+        :param url: Azure API URL; changing it requires personalAccessToken
         :param newKey: Optional replacement setting key
         :param personalAccessToken: Optional replacement personal access token
         """
@@ -119,7 +119,7 @@ class SonarQubeAlmSettings:
         Update a Bitbucket Server instance setting.
         Requires 'Administer System' permission.
         :param key: Existing DevOps Platform setting key
-        :param url: Bitbucket Server API URL
+        :param url: Bitbucket Server API URL; changing it requires personalAccessToken
         :param newKey: Optional replacement setting key
         :param personalAccessToken: Optional replacement personal access token
         """
@@ -191,7 +191,7 @@ class SonarQubeAlmSettings:
         Update a GitLab instance setting.
         Requires 'Administer System' permission.
         :param key: Existing DevOps Platform setting key
-        :param url: GitLab API URL
+        :param url: GitLab API URL; changing it requires personalAccessToken
         :param newKey: Optional replacement setting key
         :param personalAccessToken: Optional replacement personal access token
         """

@@ -45,7 +45,7 @@ def test_token_authentication_schemes(smoke_client):
         (
             "bitbucket",
             {"url": "http://localhost:9", "personalAccessToken": "test-token"},
-            {"url": "http://localhost:9/updated"},
+            {"url": "http://localhost:9"},
         ),
         (
             "bitbucketcloud",
@@ -59,7 +59,7 @@ def test_token_authentication_schemes(smoke_client):
         (
             "gitlab",
             {"url": "http://localhost:9", "personalAccessToken": "test-token"},
-            {"url": "http://localhost:9/updated"},
+            {"url": "http://localhost:9"},
         ),
     ],
 )
