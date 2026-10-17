@@ -80,3 +80,23 @@ def test_main_can_fail_on_missing_public_endpoint(tmp_path, capsys):
 
     assert result == 1
     assert "`api/foo/missing`" in capsys.readouterr().out
+
+
+def test_openapi_operations_match_dynamic_wrapper_paths(tmp_path):
+    source = tmp_path / "resource.py"
+    source.write_text("self.client._patch(f'api/v2/users/{user_id}')")
+    local = audit_api_coverage.extract_local_endpoints(tmp_path)
+    upstream = audit_api_coverage.extract_openapi_endpoints(
+        {
+            "paths": {
+                "/api/v2/users/{id}": {
+                    "parameters": [],
+                    "patch": {},
+                    "delete": {"deprecated": True},
+                }
+            }
+        }
+    )
+    rows = audit_api_coverage.compare_endpoints(local, upstream)
+    assert rows[0]["status"] == "implemented"
+    assert rows[1]["classification"] == "deprecated"

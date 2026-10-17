@@ -8,6 +8,7 @@ import argparse
 import ast
 import base64
 import json
+import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -57,6 +58,24 @@ def extract_upstream_endpoints(metadata: dict[str, Any]) -> list[UpstreamEndpoin
                 )
             )
     return sorted(endpoints, key=lambda endpoint: endpoint.endpoint)
+
+
+def extract_openapi_endpoints(metadata: dict[str, Any]) -> list[UpstreamEndpoint]:
+    """Read V2 operations from an exported OpenAPI document."""
+    endpoints = []
+    for path, operations in metadata.get("paths", {}).items():
+        for method, operation in operations.items():
+            if method.upper() not in {"GET", "POST", "PUT", "PATCH", "DELETE"}:
+                continue
+            endpoints.append(
+                UpstreamEndpoint(
+                    endpoint=re.sub(r"\{[^}]+\}", "{...}", path.strip("/")),
+                    method=method.upper(),
+                    internal=False,
+                    deprecated_since="OpenAPI" if operation.get("deprecated") else None,
+                )
+            )
+    return endpoints
 
 
 def compare_endpoints(
@@ -117,6 +136,8 @@ def load_metadata(args: argparse.Namespace) -> dict[str, Any]:
     if args.metadata_file:
         return json.loads(Path(args.metadata_file).read_text())
     if not args.host:
+        if args.openapi_file:
+            return {}
         raise SystemExit("Provide --host or --metadata-file")
     return fetch_metadata(args.host, token=args.token, timeout=args.timeout)
 
@@ -179,6 +200,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument("--token", help="SonarQube token for metadata requests")
     parser.add_argument("--metadata-file", help="Read webservices JSON from a file")
+    parser.add_argument("--openapi-file", help="Also audit exported V2 OpenAPI JSON")
     parser.add_argument("--source-root", default="src/sonarqube")
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument(
@@ -194,6 +216,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     metadata = load_metadata(args)
     local = extract_local_endpoints(Path(args.source_root))
     upstream = extract_upstream_endpoints(metadata)
+    if args.openapi_file:
+        upstream.extend(
+            extract_openapi_endpoints(json.loads(Path(args.openapi_file).read_text()))
+        )
     rows = compare_endpoints(local, upstream)
     print(format_markdown(rows))
     if args.fail_on_public_missing and any(

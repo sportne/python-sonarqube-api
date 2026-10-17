@@ -1,0 +1,47 @@
+name: Server compatibility
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SONARQUBE_IMAGE: sonarqube:26.10.0.133078-community
+    steps:
+      - uses: actions/checkout@v6.0.2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install library and test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Start the pinned disposable server
+        run: |
+          sudo sysctl -w vm.max_map_count=1048576
+          docker compose up -d
+          for attempt in $(seq 1 90); do
+            if curl -fsS http://localhost:9000/api/system/status | grep -Eq '"status"\s*:\s*"UP"'; then
+              exit 0
+            fi
+            sleep 5
+          done
+          docker compose logs
+          exit 1
+      - name: Exercise authentication against the server
+        run: python -m pytest tests/integration/test_smoke.py --run-integration --no-cov
+      - name: Record endpoint coverage for review
+        run: |
+          curl -fsS -u admin:admin http://localhost:9000/api/webservices/list > webservices.json
+          python scripts/audit_api_coverage.py --metadata-file webservices.json > api-coverage.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: api-coverage
+          path: api-coverage.md
+      - name: Stop the disposable server
+        if: always()
+        run: docker compose down --volumes

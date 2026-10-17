@@ -2,6 +2,10 @@
 
 # Authentication
 
+`SonarQubeClient(host, token=token)` sends `Authorization: Bearer ...` by default.
+Use `token_auth="basic"` for legacy token-as-username authentication. Supplying
+`user` and `password` continues to use HTTP Basic authentication.
+
 ### `POST api/authentication/login`
 *since 6.0*
 

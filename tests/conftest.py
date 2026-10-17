@@ -17,7 +17,7 @@ def pytest_configure(config):
 def pytest_collection_modifyitems(config, items):
     # First, mark tests in tests/integration as "integration"
     for item in items:
-        if "tests/integration" in str(item.fspath):
+        if "integration" in item.path.parts:
             item.add_marker(pytest.mark.integration)
 
     if config.getoption("--run-integration"):

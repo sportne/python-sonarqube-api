@@ -94,6 +94,10 @@ make test-integration
 
 #### API Coverage Audit
 
+Python 3.11 or newer is required. Token clients use Bearer authentication by
+default, following the current SonarQube API guidance. Set `token_auth="basic"`
+when a legacy server requires the previous token-as-username scheme.
+
 To compare local wrappers with a SonarQube server's Web API metadata:
 
 ```bash
@@ -105,11 +109,24 @@ upstream actions as public, internal, deprecated, or already implemented
 locally. Add `--fail-on-public-missing` when you want the command to exit
 non-zero for missing public, non-deprecated endpoints.
 
+Use `--openapi-file v2-openapi.json` to include V2 operations exported from the
+target server's Web API v2 documentation. It can also be used without `--host`
+for an offline V2-only audit. The audit checks paths and HTTP methods; request
+parameters, response contracts, and edition-specific behavior still require
+integration checks. A passing unit suite is not a full API compatibility claim.
+
+The `Server compatibility` workflow runs authentication smoke checks against
+the pinned Community image and retains an endpoint coverage report. It does not
+claim verification of licensed SonarQube Server features. The full scanner-backed
+integration suite remains available through `make test-integration`.
+
 ## API Documentation
 
 The SonarQube REST API documentation can be found here:
-- https://next.sonarqube.com/sonarqube/web_api/api/
-- https://next.sonarqube.com/sonarqube/web_api_v2
+- [Official Web API guide](https://docs.sonarsource.com/sonarqube-server/extension-guide/web-api)
+
+Open **Web API** or **Web API v2** from your target server's help menu for its
+version- and edition-specific endpoint reference.
 
 ## Future Work
 

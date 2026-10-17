@@ -1,8 +1,6 @@
-version: "3"
-
 services:
   sonarqube:
-    image: sonarqube:community
+    image: ${SONARQUBE_IMAGE:-sonarqube:26.10.0.133078-community}
     environment:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
     ports:
