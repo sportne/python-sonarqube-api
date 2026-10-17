@@ -52,13 +52,16 @@ from .webhooks import SonarQubeWebhooks
 
 
 class SonarQubeClient:
-    def __init__(self, host=None, token=None, user=None, password=None):
+    def __init__(
+        self, host=None, token=None, user=None, password=None, token_auth="bearer"
+    ):
         """
         Create a SonarQube API client.
         :param host: SonarQube host, eg. http://localhost:9000
         :param token: SonarQube user token
         :param user: SonarQube user
         :param password: SonarQube password
+        :param token_auth: Token authentication scheme: bearer (default) or basic
         """
         self.host = host
         self.token = token
@@ -68,7 +71,12 @@ class SonarQubeClient:
         # Configure authentication
         self.session = requests.Session()
         if self.token:
-            self.session.auth = (self.token, "")
+            if token_auth == "bearer":
+                self.session.headers["Authorization"] = f"Bearer {self.token}"
+            elif token_auth == "basic":
+                self.session.auth = (self.token, "")
+            else:
+                raise ValueError("token_auth must be 'bearer' or 'basic'")
         elif self.user and self.password:
             self.session.auth = (self.user, self.password)
 

@@ -8,7 +8,7 @@ import requests
 @pytest.fixture(scope="session")
 def sonarqube_server():
     # Start Sonarqube
-    subprocess.run(["docker-compose", "up", "-d"], check=True)
+    subprocess.run(["docker", "compose", "up", "-d"], check=True)
 
     base_url = "http://localhost:9000"
 
@@ -28,7 +28,7 @@ def sonarqube_server():
             print("Sonarqube timed out...")
         time.sleep(5)
     else:
-        subprocess.run(["docker-compose", "down"], check=True)
+        subprocess.run(["docker", "compose", "down"], check=True)
         pytest.fail("Sonarqube failed to start")
 
     # Generate coverage report
@@ -97,7 +97,7 @@ def sonarqube_server():
         pass
 
     # Teardown
-    subprocess.run(["docker-compose", "down"], check=True)
+    subprocess.run(["docker", "compose", "down"], check=True)
 
 
 @pytest.fixture
