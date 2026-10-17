@@ -37,3 +37,51 @@ def test_token_authentication_schemes(smoke_client):
             assert validated.json()["valid"]
     finally:
         smoke_client.user_tokens.revoke(name=name).raise_for_status()
+
+
+@pytest.mark.parametrize(
+    "provider,create_params,update_params",
+    [
+        (
+            "bitbucket",
+            {"url": "http://localhost:9", "personalAccessToken": "test-token"},
+            {"url": "http://localhost:9/updated"},
+        ),
+        (
+            "bitbucketcloud",
+            {
+                "workspace": "test-workspace",
+                "clientId": "test-client",
+                "clientSecret": "test-secret",
+            },
+            {"workspace": "updated-workspace", "clientId": "updated-client"},
+        ),
+        (
+            "gitlab",
+            {"url": "http://localhost:9", "personalAccessToken": "test-token"},
+            {"url": "http://localhost:9/updated"},
+        ),
+    ],
+)
+def test_alm_settings_lifecycle(smoke_client, provider, create_params, update_params):
+    """Exercise local settings storage without real provider credentials or requests."""
+    settings = smoke_client.alm_settings
+    key = "api-client-test-" + uuid.uuid4().hex
+    renamed = key + "-renamed"
+    getattr(settings, f"create_{provider}")(key=key, **create_params).raise_for_status()
+    try:
+        response = settings.count_binding(almSetting=key)
+        response.raise_for_status()
+        assert response.json()["projects"] == 0
+
+        getattr(settings, f"update_{provider}")(
+            key=key, newKey=renamed, **update_params
+        ).raise_for_status()
+        key = renamed
+        response = settings.count_binding(almSetting=key)
+        response.raise_for_status()
+        assert response.json()["projects"] == 0
+    finally:
+        settings.delete_setting(key=key).raise_for_status()
+
+    assert settings.validate(key=key).status_code == 404
